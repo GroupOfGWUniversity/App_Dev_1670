@@ -12,8 +12,7 @@
 
 ###
 
-<p align="center">Console.log("Hello, World");<br><br>
-###</p>
+<p align="center">Console.log("Hello, World");<br><br>-----------------------------------------<br>D:\HoangTran\App_Dev_1670>node helloworld.js<br>Hello, World</p>
 
 ###
 
@@ -41,7 +40,7 @@
   <a href="https://www.facebook.com/profile.php?id=100050628639119" target="_blank">
     <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="52" height="40" alt="facebook logo"  />
   </a>
-  <a href="mailto:ThangNVGCD210184@fpt.edu.vn" target="_blank">
+  <a href="ThangNVGCD210184@fpt.edu.vn" target="_blank">
     <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/gmail/default.svg" width="52" height="40" alt="gmail logo"  />
   </a>
   <a href="https://github.com/NguyenVanThangzzzz" target="_blank">
