@@ -1,4 +1,4 @@
-<div align="center">
+<div align="right">
   <img height="50" src="https://cdn.haitrieu.com/wp-content/uploads/2022/12/Logo-Truong-Dai-hoc-Greenwich-Viet-Nam.png"  />
 </div>
 
