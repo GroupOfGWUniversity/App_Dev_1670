@@ -41,7 +41,7 @@
   <a href="https://www.facebook.com/profile.php?id=100050628639119" target="_blank">
     <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="52" height="40" alt="facebook logo"  />
   </a>
-  <a href="ThangNVGCD210184@fpt.edu.vn" target="_blank">
+  <a href="mailto:ThangNVGCD210184@fpt.edu.vn" target="_blank">
     <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/gmail/default.svg" width="52" height="40" alt="gmail logo"  />
   </a>
   <a href="https://github.com/NguyenVanThangzzzz" target="_blank">
