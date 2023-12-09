@@ -13,9 +13,9 @@ namespace App_Dev_1670.Controllers
 		}
 		public IActionResult Index()
 		{
-			//List<Book> objProductList = _db.Books.ToList();
-			//return View(objProductList);
-			return View();
+			List<Book> objProductList = _db.Books.ToList();
+			return View(objProductList);
 		}
+
 	}
 }

@@ -4,7 +4,7 @@
 
 ###
 
-<h1 align="center">⚜️GCD1101 - Group 5🚀</h1>
+<h1 align="center">⚜️GCD1101 - Group 2🚀</h1>
 
 ###
 

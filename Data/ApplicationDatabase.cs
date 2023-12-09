@@ -1,11 +1,13 @@
 ﻿using App_Dev_1670.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Reflection.Metadata;
 
 namespace App_Dev_1670.Data
 {
-    public class ApplicationDatabase : DbContext //dùng xuyên suốt hệ thống
+    public class ApplicationDatabase : IdentityDbContext<IdentityUser> //dùng xuyên suốt hệ thống
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Order> Orders { get; set; }
