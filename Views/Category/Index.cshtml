@@ -18,7 +18,7 @@
                 </a>
             </div>
         </div>
-        <table class="table table-bordered table-striped">
+        <table id="tblData" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>
@@ -30,11 +30,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model) //hàm for để in ra hết category
+                @foreach (var obj in Model) 
                 {
                     <tr>
                         <td>
-                            @obj.CategoryID @* dùng để in ra category *@
+                            @obj.CategoryID 
                         </td>
                         <td>
                             @obj.Name

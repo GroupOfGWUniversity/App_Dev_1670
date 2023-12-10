@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App_Dev_1670.Migrations
 {
     [DbContext(typeof(ApplicationDatabase))]
-    [Migration("20231209174950_newIdentity")]
-    partial class newIdentity
+    [Migration("20231210122002_newDatabase")]
+    partial class newDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,34 +24,6 @@ namespace App_Dev_1670.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("App_Dev_1670.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"));
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AdminID");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("App_Dev_1670.Models.Book", b =>
                 {
@@ -68,7 +40,6 @@ namespace App_Dev_1670.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CategoryID")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<bool?>("Condition")
@@ -87,7 +58,6 @@ namespace App_Dev_1670.Migrations
                         .HasColumnType("float");
 
                     b.Property<int?>("SellerID")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -161,7 +131,6 @@ namespace App_Dev_1670.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
                     b.Property<int?>("CustomerID")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderPlaced")
@@ -171,7 +140,6 @@ namespace App_Dev_1670.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("SellerID")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<double?>("ShippingFee")
@@ -192,7 +160,7 @@ namespace App_Dev_1670.Migrations
 
                     b.HasIndex("SellerID");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("App_Dev_1670.Models.Payment", b =>
@@ -491,15 +459,11 @@ namespace App_Dev_1670.Migrations
                 {
                     b.HasOne("App_Dev_1670.Models.Category", "Category")
                         .WithMany("Books")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryID");
 
                     b.HasOne("App_Dev_1670.Models.Seller", "Seller")
                         .WithMany("Books")
-                        .HasForeignKey("SellerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SellerID");
 
                     b.Navigation("Category");
 
@@ -510,15 +474,11 @@ namespace App_Dev_1670.Migrations
                 {
                     b.HasOne("App_Dev_1670.Models.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerID");
 
                     b.HasOne("App_Dev_1670.Models.Seller", "Seller")
                         .WithMany("Orders")
-                        .HasForeignKey("SellerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SellerID");
 
                     b.Navigation("Customer");
 
