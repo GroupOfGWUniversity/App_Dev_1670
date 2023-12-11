@@ -14,9 +14,12 @@ namespace App_Dev_1670.Models
         public string? Author { get; set; }
         public string? Description { get; set; }
         public double? Price { get; set; }
+        [ValidateNever]
         public bool? Condition { get; set; }
         public int InStock { get; set; }
+        [ValidateNever]
         public string? FrontBookUrl { get; set; }
+        [ValidateNever]
         public string? BackBookUrl { get; set; }
         public List<Customer> Customers { get; } = new();
 

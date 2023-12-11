@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App_Dev_1670.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : Controller  
     {
         private readonly IUnitOfWork _unitOfWork;
         public CategoryController(IUnitOfWork unitOfWork)
