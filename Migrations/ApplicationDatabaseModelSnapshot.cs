@@ -37,6 +37,7 @@ namespace App_Dev_1670.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CategoryID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<bool?>("Condition")
@@ -55,6 +56,7 @@ namespace App_Dev_1670.Migrations
                         .HasColumnType("float");
 
                     b.Property<int?>("SellerID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -456,11 +458,15 @@ namespace App_Dev_1670.Migrations
                 {
                     b.HasOne("App_Dev_1670.Models.Category", "Category")
                         .WithMany("Books")
-                        .HasForeignKey("CategoryID");
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("App_Dev_1670.Models.Seller", "Seller")
                         .WithMany("Books")
-                        .HasForeignKey("SellerID");
+                        .HasForeignKey("SellerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 

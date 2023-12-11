@@ -26,11 +26,13 @@ namespace App_Dev_1670.Models
 
         ////Relationship with Category Table
         public int? CategoryID { get; set; }
+        [ForeignKey("CategoryID")]
         public Category Category { get; set; }
         ////\\Relationship with Category Table
 
         ////Relationship with Seller Table
         public int? SellerID { get; set; }
+        [ForeignKey("SellerID")]
         public Seller Seller { get; set; }
         ////Relationship with Seller Table
 

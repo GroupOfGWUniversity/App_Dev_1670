@@ -2,6 +2,7 @@
 using App_Dev_1670.Models;
 using App_Dev_1670.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace App_Dev_1670.Controllers
 {
@@ -15,11 +16,35 @@ namespace App_Dev_1670.Controllers
         public IActionResult Index()
         {
             List<Book> books = _unitOfWork.Book.GetAll().ToList();
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.CategoryID.ToString(),
+            });
 
+            IEnumerable<SelectListItem> SellerList = _unitOfWork.Seller.GetAll().Select(s => new SelectListItem
+            {
+                Text = s.ShopName,
+                Value = s.SellerID.ToString(),
+            });
             return View(books);
         }
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.CategoryID.ToString(),
+            });
+            //ViewBag.CategoryList = CategoryList;
+            ViewData["CategoryList"] = CategoryList;
+
+            IEnumerable<SelectListItem> SellerList = _unitOfWork.Seller.GetAll().Select(s => new SelectListItem
+            {
+                Text = s.ShopName,
+                Value = s.SellerID.ToString(),
+            });
+            ViewBag.SellerList = SellerList;
             return View();
         }
         [HttpPost]

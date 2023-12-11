@@ -1,9 +1,9 @@
-﻿@model List<Book>;
+﻿@model List<Seller>;
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-black bg-gradient m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Book List</h2>
+                <h2 class="text-white py-2">Category List</h2>
             </div>
         </div>
     </div>
@@ -12,9 +12,9 @@
             <div class="col-6">
             </div>
             <div class="col-6 text-end">
-                <a asp-controller="Book" asp-action="Create" class="btn btn-primary">
+                <a asp-controller="Seller" asp-action="Create" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i>
-                    Create new Book
+                    Create new Category
                 </a>
             </div>
         </div>
@@ -22,55 +22,46 @@
             <thead>
                 <tr>
                     <th>
-                        Title
+                        ShopName
                     </th>
                     <th>
-                        Author
+                        PhoneNumber
                     </th>
                     <th>
-                        Description
+                        Email
                     </th>
                     <th>
-                        Price
+                        Avatar
                     </th>
                     <th>
-                        Condition
+                        Address
                     </th>
                     <th>
-                        InStock
-                    </th>
-                    <th>
-                        FontBook
-                    </th>
-                    <th>
-                        BackBook
-                    </th>
-                    <th>
-                        CategoryID
-                    </th>
-                    <th>
-                        SellerID
+                        IsValid
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model) //hàm for để in ra hết category
+                @foreach (var obj in Model) 
                 {
                     <tr>
                         <td>
-                            @obj.Title
+                            @obj.ShopName
                         </td>
                         <td>
-                            @obj.Author
+                            @obj.PhoneNumber
                         </td>
                         <td>
-                            @obj.Description
+                            @obj.Email
                         </td>
                         <td>
-                            @obj.Price
+                            @obj.Avatar
                         </td>
                         <td>
-                            @if (obj.Condition.HasValue)
+                            @obj.Address
+                        </td>
+                        <td>
+                            @if (obj.IsValid.HasValue)
                             {
                                 <span class="badge bg-success">Good</span>
                             }
@@ -79,21 +70,11 @@
                                 <span class="badge bg-danger">Bad</span>
                             }
                         </td>
-                        <td>
-                            @obj.InStock
-                        </td>
-                        <td>
-                            @obj.FrontBookUrl
-                        </td>
-                        <td>
-                            @obj.BackBookUrl
-                        </td>
-
                         <td class="w-75 btn-group" role="group">
-                            <a asp-controller="Book" asp-action="Edit" asp-route-Id="@obj.BookID" class="btn btn-primary mx-2">
+                            <a asp-controller="Seller" asp-action="Edit" asp-route-Id="@obj.SellerID" class="btn btn-primary mx-2">
                                 <i class="bi bi-pencil-square"></i>Edit
                             </a>
-                            <a asp-controller="Book" asp-action="Delete" asp-route-Id="@obj.BookID" class="btn btn-danger mx-2">
+                            <a asp-controller="Seller" asp-action="Delete" asp-route-Id="@obj.SellerID" class="btn btn-danger mx-2">
                                 <i class="bi bi-trash"></i>
                                 Delete
                             </a>
