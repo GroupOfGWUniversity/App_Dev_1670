@@ -17,7 +17,7 @@ namespace App_Dev_1670.Repository
             this.dbSet = _db.Set<T>();
             //_db.Categories == dbSet
             _db.Books.Include(u => u.Category).Include(u => u.CategoryID);
-
+            _db.Books.Include(u => u.Seller).Include(u => u.SellerID);
         }
 
         public void Add(T entity)

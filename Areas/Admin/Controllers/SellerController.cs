@@ -2,8 +2,9 @@
 using App_Dev_1670.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App_Dev_1670.Controllers
+namespace App_Dev_1670.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class SellerController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

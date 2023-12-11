@@ -11,7 +11,7 @@ namespace App_Dev_1670.Models
         public string? Email { get; set; }
         public string? Avatar { get; set; }
         public string? Address { get; set; }
-        public bool? IsValid { get; set; }
+        public bool IsValid { get; set; }
 
 
         public List<Order> Orders { get; } = new();
