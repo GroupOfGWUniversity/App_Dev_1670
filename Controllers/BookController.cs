@@ -16,17 +16,6 @@ namespace App_Dev_1670.Controllers
         public IActionResult Index()
         {
             List<Book> books = _unitOfWork.Book.GetAll().ToList();
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(c => new SelectListItem
-            {
-                Text = c.Name,
-                Value = c.CategoryID.ToString(),
-            });
-
-            IEnumerable<SelectListItem> SellerList = _unitOfWork.Seller.GetAll().Select(s => new SelectListItem
-            {
-                Text = s.ShopName,
-                Value = s.SellerID.ToString(),
-            });
             return View(books);
         }
         public IActionResult Create()
