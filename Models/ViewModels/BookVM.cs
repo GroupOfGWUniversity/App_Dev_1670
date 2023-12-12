@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace App_Dev_1670.Models
+namespace App_Dev_1670.Models.ViewModels
 {
     public class BookVM
     {

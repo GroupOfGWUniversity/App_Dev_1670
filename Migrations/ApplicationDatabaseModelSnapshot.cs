@@ -31,22 +31,25 @@ namespace App_Dev_1670.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookID"));
 
                     b.Property<string>("Author")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BackBookUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CategoryID")
-                        .IsRequired()
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<bool?>("Condition")
                         .HasColumnType("bit");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FrontBookUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("InStock")
@@ -55,11 +58,11 @@ namespace App_Dev_1670.Migrations
                     b.Property<double?>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("SellerID")
-                        .IsRequired()
+                    b.Property<int>("SellerID")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookID");
@@ -73,16 +76,17 @@ namespace App_Dev_1670.Migrations
 
             modelBuilder.Entity("App_Dev_1670.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CategoryID");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
@@ -208,7 +212,7 @@ namespace App_Dev_1670.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsValid")
+                    b.Property<bool>("IsValid")
                         .HasColumnType("bit");
 
                     b.Property<string>("PhoneNumber")
@@ -457,13 +461,13 @@ namespace App_Dev_1670.Migrations
             modelBuilder.Entity("App_Dev_1670.Models.Book", b =>
                 {
                     b.HasOne("App_Dev_1670.Models.Category", "Category")
-                        .WithMany("Books")
+                        .WithMany()
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("App_Dev_1670.Models.Seller", "Seller")
-                        .WithMany("Books")
+                        .WithMany()
                         .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -480,7 +484,7 @@ namespace App_Dev_1670.Migrations
                         .HasForeignKey("CustomerID");
 
                     b.HasOne("App_Dev_1670.Models.Seller", "Seller")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("SellerID");
 
                     b.Navigation("Customer");
@@ -578,11 +582,6 @@ namespace App_Dev_1670.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("App_Dev_1670.Models.Category", b =>
-                {
-                    b.Navigation("Books");
-                });
-
             modelBuilder.Entity("App_Dev_1670.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
@@ -592,13 +591,6 @@ namespace App_Dev_1670.Migrations
                 {
                     b.Navigation("Payment")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("App_Dev_1670.Models.Seller", b =>
-                {
-                    b.Navigation("Books");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,15 +4,14 @@
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Create Book</h2>
+                <h1> @(Model.Book.BookID == 0 ? "Create" : "Edit") a Book</h1>
             </div>
         </div>
     </div>
     <div class="card-body p-4">
         <form method="post" class="row" enctype="multipart/form-data">
             @* nhận các dữ liệu khác nhau *@
-            <input asp-for="Book.CategoryID" hidden /> @* ẩn thuộc tính id với người dùng *@
-            <input asp-for="Book.SellerID" hidden /> @* ẩn thuộc tính id với người dùng *@
+            <input asp-for="Book.BookID" hidden />
             <div class="border p-3">
                 @*<div asp-validation-summary="ModelOnly"></div>*@
                 <div class="form-floating py-2 col-12">
@@ -59,24 +58,32 @@
                     <span asp-validation-for=" Book.BackBookUrl" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <select asp-for="@Model.Book.CategoryID" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
+                    <select asp-for="Book.CategoryID" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
                         <option disabled selected>--Selected Roles--</option>
                     </select>
                     <label asp-for="Book.CategoryID" class="ms-2"></label>
                     <span asp-validation-for="Book.CategoryID" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <select asp-for="@Model.Book.SellerID" asp-items="@Model.SellerList" class="form-select border-0 shadow">
+                    <select asp-for="Book.SellerID" asp-items="@Model.SellerList" class="form-select border-0 shadow">
                         <option disabled selected>--Select Seller </option>
                     </select>
                     <label asp-for=" Book.SellerID" class="ms-2"></label>
                     <span asp-validation-for=" Book.SellerID" class="text-danger"></span>
                 </div>
+
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">Create</button>
-                    </div>
-                    <div class="col-6 col-md-3">
+                        @if (Model.Book.BookID == 0)
+                        {
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        }
+
+                        <div class="col-6 col-md-3">
                         <a asp-controller="Book" asp-action="Index" class="btn btn-outline-primary border  form-control">
                             Back to List
                         </a>
