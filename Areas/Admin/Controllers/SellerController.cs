@@ -1,36 +1,37 @@
-﻿using App_Dev_1670.Data;
-using App_Dev_1670.Models;
+﻿using App_Dev_1670.Models;
 using App_Dev_1670.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App_Dev_1670.Controllers
+namespace App_Dev_1670.Areas.Admin.Controllers
 {
-    public class CategoryController : Controller  
+    [Area("Admin")]
+    public class SellerController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CategoryController(IUnitOfWork unitOfWork)
+        public SellerController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> categories = _unitOfWork.Category.GetAll().ToList();
+            List<Seller> sellers = _unitOfWork.Seller.GetAll().ToList();
 
-            return View(categories);
+            return View(sellers);
         }
+
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Category obj)
+        public IActionResult Create(Seller obj)
         {
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Seller.Add(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Seller created successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -43,24 +44,24 @@ namespace App_Dev_1670.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryID == id);
-            //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //Category? categoryFromDb2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
+            Seller? sellerFromDb = _unitOfWork.Seller.Get(u => u.SellerID == id);
+            //Seller? sellerFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //Seller? sellerFromDb2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
 
-            if (categoryFromDb == null)
+            if (sellerFromDb == null)
             {
                 return NotFound();
             }
-            return View(categoryFromDb);
+            return View(sellerFromDb);
         }
         [HttpPost]
-        public IActionResult Edit(Category obj)
+        public IActionResult Edit(Seller obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Seller.Update(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category updated successfully";
+                TempData["success"] = "Seller updated successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -73,25 +74,25 @@ namespace App_Dev_1670.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryID == id);
+            Seller? sellerFromDb = _unitOfWork.Seller.Get(u => u.SellerID == id);
 
-            if (categoryFromDb == null)
+            if (sellerFromDb == null)
             {
                 return NotFound();
             }
-            return View(categoryFromDb);
+            return View(sellerFromDb);
         }
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _unitOfWork.Category.Get(u => u.CategoryID == id);
+            Seller? obj = _unitOfWork.Seller.Get(u => u.SellerID == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Seller.Remove(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Category deleted successfully";
+            TempData["success"] = "Seller deleted successfully";
             return RedirectToAction("Index");
         }
     }

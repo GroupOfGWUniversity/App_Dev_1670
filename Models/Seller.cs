@@ -14,8 +14,8 @@ namespace App_Dev_1670.Models
         public bool IsValid { get; set; }
 
 
-        public List<Order> Orders { get; } = new();
-        public List<Book> Books { get; } = new();
+        //public List<Order> Orders { get; } = new();
+        //public List<Book> Books { get; } = new();
 
 
     }
