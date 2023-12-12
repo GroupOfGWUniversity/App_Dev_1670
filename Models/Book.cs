@@ -16,10 +16,9 @@ namespace App_Dev_1670.Models
         public string Author { get; set; }
         public string Description { get; set; }
         public double? Price { get; set; }
-<<<<<<< HEAD
+
         [ValidateNever]
-=======
->>>>>>> 719265979e123ae5c5263cd0965ff5ab1ba07e5b
+
         public bool Condition { get; set; }
         public int InStock { get; set; }
         public string FrontBookUrl { get; set; }
