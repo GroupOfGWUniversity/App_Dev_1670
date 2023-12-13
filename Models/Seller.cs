@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 
 namespace App_Dev_1670.Models
@@ -9,6 +10,7 @@ namespace App_Dev_1670.Models
         public string? ShopName { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
+        [ValidateNever]
         public string? Avatar { get; set; }
         public string? Address { get; set; }
         public bool IsValid { get; set; }
