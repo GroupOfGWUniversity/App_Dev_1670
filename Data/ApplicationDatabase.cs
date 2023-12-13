@@ -11,12 +11,14 @@ namespace App_Dev_1670.Data
     public class ApplicationDatabase : IdentityDbContext<Customer> //dùng xuyên suốt hệ thống
     {
 
-       d public DbSet<Book> Books { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Book> Books { get; set; }
         public DbSet<Order> OrderDetails { get; set; }
         public DbSet<Order> OrderHeader { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<User> User { get; set; }
 
         public ApplicationDatabase(DbContextOptions<ApplicationDatabase> options) : base(options) //đưa tất cả options vào base
         {
@@ -29,6 +31,48 @@ namespace App_Dev_1670.Data
             base.OnModelCreating(modelBuilder);
 
 
+            //\\Users(Customer) <-> Books (Many -> Cart <- Many)
+            modelBuilder.Entity<User>()
+              .HasMany(e => e.BooksInCart)
+              .WithMany(e => e.ListOfCustomers)
+              .UsingEntity("Cart");
+
+            //\\User(Seller) -> Books (One -> Many)
+            modelBuilder.Entity<Book>()
+                .HasOne(e => e.Seller)
+                .WithMany(e => e.SellBooks)
+                .HasForeignKey(e => e.SellerID)
+                .OnDelete(DeleteBehavior.SetNull);// khi xoá 1 Seller -> Trong Book -> SellerID= Null
+
+            //\\Users <-> Orders (Many -> UserOrder <- Many)
+            modelBuilder.Entity<User>()
+                 .HasMany(e => e.ListOrders)
+              .WithMany(e => e.ListOfUsers);
+
+
+            //\\Orders <-> Books (Many -> OrderBook <- Many)
+            modelBuilder.Entity<Order>()
+                .HasMany(e => e.BooksInOrder)
+             .WithMany(e => e.ListOfOrders);
+
+
+
+
+            //\\Category -> Books (One -> Many)
+            modelBuilder.Entity<Book>()
+             .HasOne(e => e.Category)
+             .WithMany(e => e.Books)
+             .HasForeignKey(e => e.CategoryID);
+
+
+
+            //\\Order -> Payment (One -> One)
+            modelBuilder.Entity<Payment>()
+                .HasOne(e => e.Order)
+                .WithOne(e => e.Payment)
+                .HasForeignKey<Order>(e => e.PaymentID);
+
+           
         }
     }
 }

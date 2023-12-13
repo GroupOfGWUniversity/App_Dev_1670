@@ -1,0 +1,89 @@
+﻿@* @model List<Seller>;
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-black bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Seller List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Seller" asp-action="CreateUpdate" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i>
+                    Create new Seller
+                </a>
+            </div>
+        </div>
+        <table id="tblData" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ShopName
+                    </th>
+                    <th>
+                        PhoneNumber
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Avatar
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        IsValid
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model) 
+                {
+                    <tr>
+                        <td>
+                            @obj.ShopName
+                        </td>
+                        <td>
+                            @obj.PhoneNumber
+                        </td>
+                        <td>
+                            @obj.Email
+                        </td>
+                        <td>
+                            <img src="@obj.Avatar" alt="Avatar" width="100" />
+                        </td>
+                        <td>
+                            @obj.Address
+                        </td>
+                        <td>
+                            @if (obj.IsValid)
+                            {
+                                <span class="badge bg-success">Good</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Bad</span>
+                            }
+                        </td>
+                        <td class="w-75 btn-group" role="group">
+                            <a asp-controller="Seller" asp-action="CreateUpdate" asp-route-Id="@obj.SellerID" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                            <a asp-controller="Seller" asp-action="Delete" asp-route-Id="@obj.SellerID" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash"></i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+ *@
