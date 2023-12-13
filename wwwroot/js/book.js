@@ -1,59 +1,55 @@
-﻿var dataTable;
+﻿
+
+var dataTable;
+
 $(document).ready(function () {
     loadDataTable();
 });
 
 function loadDataTable() {
-    dataTable =
-        $('#tblData').DataTable({
-            "ajax": {url: '/Admin/Book/getall'
-        },
-            "columns": [
-                { data: 'title', "width":"20%" },
-                { data: 'author', "width": "15%" },
-                { data: 'description', "width": "10%" },
-                { data: 'price', "width": "15%" },
-                { data: 'condition', "width": "15%" },
-                { data: 'instock', "width": "15%" },
-                { data: 'category.name', "width": "10%" },
-                { data: 'seller.name', "width": "15%" },
+    dataTable = $('#tblData').DataTable({
+        "ajax": { url: '/admin/book/getall' },
+        "columns": [
+            { data: 'title', "width": "20%" },
+            { data: 'author', "width": "15%" },
+            { data: 'description', "width": "10%" },
+            { data: 'price', "width": "15%" },
+            { data: 'condition', "width": "15%" },
+            { data: 'instock', "width": "15%" },
+            { data: 'category.name', "width": "10%" },
+            { data: 'seller.name', "width": "15%" },
 
-                {
-                    data: 'id',
-                    "render": function (data) {
-                        return `<div class="w-75 btn-group" role="group"> <a href="/admin/book/createupdate?id=${data}" class="btn btn-primary mx-2" > <i class="bi bi-pencil-square"></i>Edit</a ><a onClick=Delete('/admin/book/delete/${data}') class="btn btn-danger mx-2" ><i class="bi bi-pencil-square"></i>Delete</a ></div >`
-                    },
+            {
+                data: 'id',
+                "render": function (data) {
+                    return `<div class="w-75 btn-group" role="group"> <a href="/admin/book/createupdate?id=${data}" class="btn btn-primary mx-2" > <i class="bi bi-pencil-square"></i>Edit</a ><a onClick=Delete('/admin/book/delete/${data}') class="btn btn-danger mx-2" ><i class="bi bi-pencil-square"></i>Delete</a ></div >`
+                },
 
-                    "width": "25%"
-                }
-
+                "width": "25%"
+            }
         ]
-        });
+    });
 }
+
 function Delete(url) {
     Swal.fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: "You won't be able to revert this!",
-        icon: "warning",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
             $.ajax({
                 url: url,
                 type: 'DELETE',
                 success: function (data) {
                     dataTable.ajax.reload();
-                    toast.success(data.message);
+                    toastr.success(data.message);
                 }
             })
         }
-    });
+    })
 }

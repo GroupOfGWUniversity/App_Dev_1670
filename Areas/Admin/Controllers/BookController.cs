@@ -20,7 +20,7 @@ namespace App_Dev_1670.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Book> books = _unitOfWork.Book.GetAll(includeProperty:"Category,Seller").ToList();
+            List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category,Seller").ToList();
 
             return View(books);
         }
@@ -31,7 +31,7 @@ namespace App_Dev_1670.Areas.Admin.Controllers
                 CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
-                    Value = u.Id.ToString()
+                    Value = u.Id.ToString() 
                 }),
                 SellerList = _unitOfWork.Seller.GetAll().Select(u => new SelectListItem
                 {
@@ -53,21 +53,74 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public IActionResult CreateUpdate(BookVM obj)
+        public IActionResult CreateUpdate(BookVM obj,IFormFile? frontBookImage, IFormFile? BackBookImage)
         {
 
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+
+                if (frontBookImage != null)
+                {
+                    // Xử lý frontimage
+                    string frontImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(frontBookImage.FileName);
+                    string frontImagePath = Path.Combine(wwwRootPath, @"images\book");
+
+                    if (!string.IsNullOrEmpty(obj.Book.FrontBookUrl))
+                    {
+                        // Xóa ảnh cũ
+                        var oldFrontImagePath = Path.Combine(wwwRootPath, obj.Book.FrontBookUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldFrontImagePath))
+                        {
+                            System.IO.File.Delete(oldFrontImagePath);
+                        }
+                    }
+
+                    using (var frontImageStream = new FileStream(Path.Combine(frontImagePath, frontImageFileName), FileMode.Create))
+                    {
+                        frontBookImage.CopyTo(frontImageStream);
+                    }
+
+                    obj.Book.FrontBookUrl = @"\images\book\" + frontImageFileName;
+                }
+
+                if (BackBookImage != null)
+                {
+                    // Xử lý backimage
+                    string backImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(BackBookImage.FileName);
+                    string backImagePath = Path.Combine(wwwRootPath, @"images\book");
+
+                    if (!string.IsNullOrEmpty(obj.Book.BackBookUrl))
+                    {
+                        // Xóa ảnh cũ
+                        var oldBackImagePath = Path.Combine(wwwRootPath, obj.Book.BackBookUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldBackImagePath))
+                        {
+                            System.IO.File.Delete(oldBackImagePath);
+                        }
+                    }
+
+                    using (var backImageStream = new FileStream(Path.Combine(backImagePath, backImageFileName), FileMode.Create))
+                    {
+                        BackBookImage.CopyTo(backImageStream);
+                    }
+
+                    obj.Book.BackBookUrl = @"\images\book\" + backImageFileName;
+                }
+
                 if (obj.Book.BookID == 0)
                 {
                     _unitOfWork.Book.Add(obj.Book); //thêm Product
+                    TempData["Success"] = "Product Create Successfully";
+
                 }
                 else
                 {
                     _unitOfWork.Book.Update(obj.Book); //update Product
+                    TempData["Success"] = "Product Update Successfully";
+
                 }
                 _unitOfWork.Save(); // lưu lại product vào danh sách và lưu vào database
-                TempData["Success"] = "Product Create Successfully";
                 return RedirectToAction("Index"); //trả lại trang category
             }
             else
@@ -145,5 +198,13 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             TempData["success"] = "Book deleted successfully";
             return RedirectToAction("Index");
         }
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category,Seller").ToList();
+            return Json(new { data = books });
+        }
+        #endregion
     }
 }

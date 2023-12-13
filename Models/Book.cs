@@ -18,7 +18,9 @@ namespace App_Dev_1670.Models
         public double? Price { get; set; }
         public bool Condition { get; set; }
         public int InStock { get; set; }
+        [ValidateNever]
         public string FrontBookUrl { get; set; }
+        [ValidateNever]
         public string BackBookUrl { get; set; }
 
         [ValidateNever]
