@@ -8,17 +8,16 @@ using System.Security.AccessControl;
 
 namespace App_Dev_1670.Data
 {
-    public class ApplicationDatabase : IdentityDbContext<Customer> //dùng xuyên suốt hệ thống
+    public class ApplicationDatabase : IdentityDbContext<IdentityUser> //dùng xuyên suốt hệ thống
     {
 
-        public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Order> OrderDetails { get; set; }
         public DbSet<Order> OrderHeader { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public ApplicationDatabase(DbContextOptions<ApplicationDatabase> options) : base(options) //đưa tất cả options vào base
         {
