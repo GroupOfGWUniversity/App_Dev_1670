@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using App_Dev_1670.Models;
+using App_Dev_1670.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,9 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        //Create Role
+        private readonly RoleManager<IdentityRole> _roleManager;
+        //
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
@@ -33,11 +37,17 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
+            //Create Role
+            RoleManager<IdentityRole> roleManager,
+            //
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            //create Role
+            _roleManager= roleManager;
+            //
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
@@ -103,6 +113,14 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            //create role
+            if (!_roleManager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Seller)).GetAwaiter().GetResult();
+            }
+            //create role
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -155,11 +173,19 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
             return Page();
         }
 
+<<<<<<< Updated upstream
         private User CreateUser()
         {
             try
             {
                 return Activator.CreateInstance<User>();
+=======
+        private ApplicationUser CreateUser()
+        {
+            try
+            {
+                return Activator.CreateInstance<ApplicationUser>();
+>>>>>>> Stashed changes
             }
             catch
             {

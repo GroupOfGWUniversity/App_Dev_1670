@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App_Dev_1670.Migrations
 {
     [DbContext(typeof(ApplicationDatabase))]
-    [Migration("20231213212710_updateDatabaseBaseOnERD")]
-    partial class updateDatabaseBaseOnERD
+    [Migration("20231214200041_fixBugInDB")]
+    partial class fixBugInDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,6 +151,21 @@ namespace App_Dev_1670.Migrations
                     b.HasKey("PaymentID");
 
                     b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("ApplicationUserOrder", b =>
+                {
+                    b.Property<string>("ListOfUsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ListOrdersOrderID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ListOfUsersId", "ListOrdersOrderID");
+
+                    b.HasIndex("ListOrdersOrderID");
+
+                    b.ToTable("ApplicationUserOrder");
                 });
 
             modelBuilder.Entity("BookOrder", b =>
@@ -336,12 +351,10 @@ namespace App_Dev_1670.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -378,12 +391,10 @@ namespace App_Dev_1670.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -393,22 +404,7 @@ namespace App_Dev_1670.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OrderUser", b =>
-                {
-                    b.Property<string>("ListOfUsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ListOrdersOrderID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ListOfUsersId", "ListOrdersOrderID");
-
-                    b.HasIndex("ListOrdersOrderID");
-
-                    b.ToTable("OrderUser");
-                });
-
-            modelBuilder.Entity("App_Dev_1670.Models.User", b =>
+            modelBuilder.Entity("App_Dev_1670.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -424,7 +420,7 @@ namespace App_Dev_1670.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("User");
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("App_Dev_1670.Models.Book", b =>
@@ -435,7 +431,7 @@ namespace App_Dev_1670.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App_Dev_1670.Models.User", "Seller")
+                    b.HasOne("App_Dev_1670.Models.ApplicationUser", "Seller")
                         .WithMany("SellBooks")
                         .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -454,6 +450,21 @@ namespace App_Dev_1670.Migrations
                         .IsRequired();
 
                     b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("ApplicationUserOrder", b =>
+                {
+                    b.HasOne("App_Dev_1670.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("ListOfUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App_Dev_1670.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("ListOrdersOrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookOrder", b =>
@@ -479,7 +490,7 @@ namespace App_Dev_1670.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App_Dev_1670.Models.User", null)
+                    b.HasOne("App_Dev_1670.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("ListOfCustomersId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -537,21 +548,6 @@ namespace App_Dev_1670.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrderUser", b =>
-                {
-                    b.HasOne("App_Dev_1670.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("ListOfUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App_Dev_1670.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("ListOrdersOrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("App_Dev_1670.Models.Category", b =>
                 {
                     b.Navigation("Books");
@@ -563,7 +559,7 @@ namespace App_Dev_1670.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("App_Dev_1670.Models.User", b =>
+            modelBuilder.Entity("App_Dev_1670.Models.ApplicationUser", b =>
                 {
                     b.Navigation("SellBooks");
                 });

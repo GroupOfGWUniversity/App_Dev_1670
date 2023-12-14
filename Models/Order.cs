@@ -21,7 +21,7 @@ namespace App_Dev_1670.Models
         //Relationship with Book Table
         public List<Book> BooksInOrder { get; } = new();
         //contain 2,more users (seller, customer)
-        public List<User> ListOfUsers { get; } = new();
+        public List<ApplicationUser> ListOfUsers { get; } = new();
 
 
     }

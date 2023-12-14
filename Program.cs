@@ -2,6 +2,13 @@ using App_Dev_1670.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using App_Dev_1670.Models;
+<<<<<<< Updated upstream
+=======
+using App_Dev_1670.Repository.IRepository;
+using App_Dev_1670.Repository;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using App_Dev_1670.Utility;
+>>>>>>> Stashed changes
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +19,26 @@ builder.Services.AddDbContext<ApplicationDatabase>(options => options.UseSqlServ
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDatabase>().AddDefaultTokenProviders();
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDatabase>().AddDefaultTokenProviders();
+<<<<<<< Updated upstream
 //builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+=======
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+    
+
+})
+>>>>>>> Stashed changes
     .AddEntityFrameworkStores<ApplicationDatabase>()
-    .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders();
+
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+
 
 builder.Services.ConfigureApplicationCookie(options => {
     options.LoginPath = $"/Identity/Account/Login";

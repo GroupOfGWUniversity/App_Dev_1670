@@ -17,7 +17,7 @@ namespace App_Dev_1670.Data
         public DbSet<Order> OrderHeader { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
 
         public ApplicationDatabase(DbContextOptions<ApplicationDatabase> options) : base(options) //đưa tất cả options vào base
         {
@@ -31,7 +31,7 @@ namespace App_Dev_1670.Data
 
 
             //\\Users(Customer) <-> Books (Many -> Cart <- Many)
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<ApplicationUser>()
               .HasMany(e => e.BooksInCart)
               .WithMany(e => e.ListOfCustomers)
               .UsingEntity("Cart");
@@ -44,7 +44,7 @@ namespace App_Dev_1670.Data
                 .OnDelete(DeleteBehavior.SetNull);// khi xoá 1 Seller -> Trong Book -> SellerID= Null
 
             //\\Users <-> Orders (Many -> UserOrder <- Many)
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<ApplicationUser>()
                  .HasMany(e => e.ListOrders)
               .WithMany(e => e.ListOfUsers);
 

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+<<<<<<< Updated upstream:Models/User.cs
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+=======
+>>>>>>> Stashed changes:Models/ApplicationUser.cs
 
 namespace App_Dev_1670.Models
 {
-    public class User:IdentityUser
+    public class ApplicationUser:IdentityUser
     {
         public string? Name { get; set; }
         public string? Gender { get; set; }

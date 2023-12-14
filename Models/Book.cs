@@ -37,10 +37,18 @@ namespace App_Dev_1670.Models
         [ValidateNever]
         public List<Order> ListOfOrders { get; } = new List<Order>();
         [ValidateNever]
+<<<<<<< Updated upstream
         public User? Seller {  get; set; }
         public String? SellerID { get; set; }
 
 
         public List<User> ListOfCustomers{ get; }=new List<User>();
+=======
+        public ApplicationUser? Seller { get; set; }
+        public String? SellerID { get; set; }
+
+
+        public List<ApplicationUser> ListOfCustomers { get; } = new List<ApplicationUser>();
+>>>>>>> Stashed changes
     }
 }
