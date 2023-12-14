@@ -71,7 +71,7 @@ namespace App_Dev_1670.Data
                 .WithOne(e => e.Payment)
                 .HasForeignKey<Order>(e => e.PaymentID);
 
-           
+
         }
     }
 }

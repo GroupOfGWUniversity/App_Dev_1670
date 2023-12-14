@@ -28,7 +28,7 @@ namespace App_Dev_1670.Models
 
 
 
-        
+
         [ValidateNever]
         public Category Category { get; set; }
         public int CategoryID { get; set; }
@@ -37,10 +37,10 @@ namespace App_Dev_1670.Models
         [ValidateNever]
         public List<Order> ListOfOrders { get; } = new List<Order>();
         [ValidateNever]
-        public User? Seller {  get; set; }
+        public User? Seller { get; set; }
         public String? SellerID { get; set; }
 
 
-        public List<User> ListOfCustomers{ get; }=new List<User>();
+        public List<User> ListOfCustomers { get; } = new List<User>();
     }
 }

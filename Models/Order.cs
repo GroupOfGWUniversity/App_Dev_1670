@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using App_Dev_1670.Models.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace App_Dev_1670.Models

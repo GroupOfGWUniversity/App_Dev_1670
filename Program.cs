@@ -2,6 +2,8 @@ using App_Dev_1670.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using App_Dev_1670.Models;
+using App_Dev_1670.Repository.IRepository;
+using App_Dev_1670.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +14,8 @@ builder.Services.AddDbContext<ApplicationDatabase>(options => options.UseSqlServ
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDatabase>().AddDefaultTokenProviders();
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDatabase>().AddDefaultTokenProviders();
-//builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDatabase>()
     .AddDefaultTokenProviders();
 
@@ -44,6 +46,5 @@ app.UseAuthentication();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    pattern: "{area=User}/{controller=Home}/{action=Index}/{id?}");
 app.Run();
