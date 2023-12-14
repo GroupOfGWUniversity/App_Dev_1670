@@ -11,9 +11,8 @@ namespace App_Dev_1670.Models
         public string? Method { get; set; }
         public DateTime DateCreated { get; set; }
         public string? Status { get; set; }
+        public Order Order { get; set; }
 
-        public int? OrderID { get; set; }
-        public Order? Order { get; set; }
 
     }
 }

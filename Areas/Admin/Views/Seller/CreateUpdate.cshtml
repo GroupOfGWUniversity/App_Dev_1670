@@ -1,0 +1,78 @@
+﻿@* 
+@model Seller
+
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+    <div class="row">
+        <div class="col-12 text-center">
+                <h2 class="text-white py-2"> @(Model.SellerID!=0?"Update":"Create") Seller</h2>
+        </div>
+    </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="SellerID" hidden />
+            <input asp-for="@Model.Avatar" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3">
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="ShopName" class="form-control border-0 shadow" />
+                            <label asp-for="ShopName" class="ms-2"></label>
+                            <span asp-validation-for="ShopName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="PhoneNumber" class="form-control border-0 shadow" />
+                            <label asp-for="PhoneNumber" class="ms-2"></label>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Email" class="form-control border-0 shadow" />
+                            <label asp-for="Email" class="ms-2"></label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input type="file" name="file" class="form-control border-0 shadow" />
+                            <label asp-for="@Model.Avatar" class="ms-2"></label>
+                            <img src="@Model.Avatar" width="100%"
+                                 style="border-radius:5px; border:1px solid #bbb9b9" />
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Address" class="form-control border-0 shadow" />
+                            <label asp-for="Address" class="ms-2"></label>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <select asp-for="IsValid" class="form-control border-0 shadow">
+                                <option value="true">Good Condition</option>
+                                <option value="false">Bad Condition</option>
+                            </select>
+
+                            <label asp-for="IsValid" class="ms-2"></label>
+                            <span asp-validation-for="IsValid" class="text-danger"></span>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.SellerID != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Seller" asp-action="Index" class="btn btn-outline-primary border  form-control">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+           
+        </form>
+    </div>  
+</div> *@

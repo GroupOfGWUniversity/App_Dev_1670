@@ -20,7 +20,11 @@ namespace App_Dev_1670.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+<<<<<<< HEAD
             List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category,Seller").ToList();
+=======
+            List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category").ToList();
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
 
             return View(books);
         }
@@ -31,6 +35,7 @@ namespace App_Dev_1670.Areas.Admin.Controllers
                 CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
+<<<<<<< HEAD
                     Value = u.Id.ToString() 
                 }),
                 SellerList = _unitOfWork.Seller.GetAll().Select(u => new SelectListItem
@@ -41,6 +46,13 @@ namespace App_Dev_1670.Areas.Admin.Controllers
                 Book = new Book()
             };
             if ( id == null || id == 0)
+=======
+                    Value = u.Id.ToString()
+                }),
+                Book = new Book()
+            };
+            if (id == null || id == 0)
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
             {
                 //create
                 return View(bookVM);
@@ -53,7 +65,11 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             }
         }
         [HttpPost]
+<<<<<<< HEAD
         public IActionResult CreateUpdate(BookVM obj,IFormFile? frontBookImage, IFormFile? BackBookImage)
+=======
+        public IActionResult CreateUpdate(BookVM obj, IFormFile? frontBookImage, IFormFile? BackBookImage)
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
         {
 
             if (ModelState.IsValid)
@@ -131,12 +147,15 @@ namespace App_Dev_1670.Areas.Admin.Controllers
                                Text = u.Name,
                                Value = u.Id.ToString()
                            });
+<<<<<<< HEAD
                 obj.SellerList = _unitOfWork.Seller.GetAll().
                            Select(u => new SelectListItem
                            {
                                Text = u.ShopName,
                                Value = u.SellerID.ToString()
                            });
+=======
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                 return View(obj);
             }
         }
@@ -202,7 +221,11 @@ namespace App_Dev_1670.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
+<<<<<<< HEAD
             List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category,Seller").ToList();
+=======
+            List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category").ToList();
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
             return Json(new { data = books });
         }
         #endregion

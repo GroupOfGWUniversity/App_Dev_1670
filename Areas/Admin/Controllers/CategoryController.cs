@@ -96,4 +96,8 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621

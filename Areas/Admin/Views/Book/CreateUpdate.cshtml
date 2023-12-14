@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@* @model BookVM
 
 <div class="card shadow border-0 mt-4">
@@ -103,6 +104,9 @@
     }
 } *@
 @model BookVM
+=======
+﻿@model BookVM
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
 
 <div class="card shadow border-0 my-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
@@ -164,6 +168,7 @@
                             <span asp-validation-for="Book.CategoryID" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
+<<<<<<< HEAD
                             <select asp-for="Book.SellerID" asp-items="@Model.SellerList" class="form-select border-0 shadow">
                                 <option disabled selected>--Select Seller </option>
                             </select>
@@ -171,6 +176,8 @@
                             <span asp-validation-for=" Book.SellerID" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
+=======
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                             <input type="file" name="frontBookImage" class="form-control border-0 shadow" />
                             <label asp-for="Book.FrontBookUrl" class="ms-2"></label>
                             <img src="@Model.Book.FrontBookUrl" width="100%"

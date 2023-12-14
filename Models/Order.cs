@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using App_Dev_1670.Models.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace App_Dev_1670.Models
@@ -14,23 +15,14 @@ namespace App_Dev_1670.Models
         public double? SubTotal { get; set; }
         public double? Total { get; set; }
 
-        public Payment Payment { get; set; }
+        public Payment? Payment { get; set; }
+        public int PaymentID {  get; set; }
 
-        ////Relationship with Customer Table
-        public int? CustomerID { get; set; }
-        public Customer Customer { get; set; }
-        ////Relationship with Customer Table
-
-
-
-
-        ////Relationship with Seller Table
-        public int? SellerID { get; set; }
-        public Seller Seller { get; set; }
-        ////Relationship with Seller Table
-
+      
         //Relationship with Book Table
-        public List<Book> Books { get; } = new();
+        public List<Book> BooksInOrder { get; } = new();
+        //contain 2,more users (seller, customer)
+        public List<User> ListOfUsers { get; } = new();
 
 
     }

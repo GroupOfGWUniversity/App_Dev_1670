@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 ﻿@model List<Book>;
 <partial name="_Notification" />
+=======
+﻿@model List<Seller>;
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-black bg-gradient m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
+<<<<<<< HEAD
                 <h2 class="text-white py-2">Book List</h2>
+=======
+                <h2 class="text-white py-2">Category List</h2>
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
             </div>
         </div>
     </div>
@@ -13,9 +21,19 @@
             <div class="col-6">
             </div>
             <div class="col-6 text-end">
+<<<<<<< HEAD
                 <a asp-controller="Book" asp-action="CreateUpdate" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i>
                     Create new Book
+=======
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
+                <a asp-controller="Seller" asp-action="Create" class="btn btn-primary">
+========
+                <a asp-controller="Book" asp-action="CreateUpdate" class="btn btn-primary">
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+                    <i class="bi bi-plus-circle"></i>
+                    Create new Category
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                 </a>
             </div>
         </div>
@@ -23,6 +41,7 @@
             <thead>
                 <tr>
                     <th>
+<<<<<<< HEAD
                         Title
                     </th>
                     <th>
@@ -51,10 +70,39 @@
                     </th>
                     <th>
                         BackBookImage
+=======
+                        ShopName
+                    </th>
+                    <th>
+                        PhoneNumber
+                    </th>
+                    <th>
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
+                        Email
+========
+                        Description
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+                    </th>
+                    <th>
+                        Avatar
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        IsValid
+                    </th>
+                    <th>
+                        FrontBookUrl
+                    </th>
+                    <th>
+                        BackBookUrl
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                     </th>
                 </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
                 @foreach (var obj in Model) //hàm for để in ra hết category
                 {
                     <tr>
@@ -71,6 +119,31 @@
                             @obj.Price
                         </td>
                         <td>
+=======
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
+                @foreach (var obj in Model) 
+========
+                @foreach (var obj in Model)
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+                {
+                    <tr>
+                        <td>
+                            @obj.ShopName
+                        </td>
+                        <td>
+                            @obj.PhoneNumber
+                        </td>
+                        <td>
+                            @obj.Email
+                        </td>
+                        <td>
+                            @obj.Avatar
+                        </td>
+                        <td>
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
+                            @obj.Address
+========
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                             @if (obj.Condition)
                             {
                                 <span class="badge bg-success">Good</span>
@@ -79,6 +152,7 @@
                             {
                                 <span class="badge bg-danger">Bad</span>
                             }
+<<<<<<< HEAD
                         </td>
                         <td>
                             @obj.InStock
@@ -97,10 +171,41 @@
                         </td>
 
                         <td class="w-75 btn-group" role="group">
+=======
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+                        </td>
+                        <td>
+                            @if (obj.IsValid)
+                            {
+                                <span class="badge bg-success">Good</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Bad</span>
+                            }
+                        </td>
+                        <td>
+                            <img src="@obj.FrontBookUrl" alt="Avatar" width="100" />
+                        </td>
+                        <td>
+                            <img src="@obj.BackBookUrl" alt="Avatar" width="100" />
+                        </td>
+                        <td class="w-75 btn-group" role="group">
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
+                            <a asp-controller="Seller" asp-action="Edit" asp-route-Id="@obj.SellerID" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                            <a asp-controller="Seller" asp-action="Delete" asp-route-Id="@obj.SellerID" class="btn btn-danger mx-2">
+========
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                             <a asp-controller="Book" asp-action="CreateUpdate" asp-route-Id="@obj.BookID" class="btn btn-primary mx-2">
                                 <i class="bi bi-pencil-square"></i>Edit
                             </a>
                             <a asp-controller="Book" asp-action="Delete" asp-route-Id="@obj.BookID" class="btn btn-danger mx-2">
+<<<<<<< HEAD
+=======
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                                 <i class="bi bi-trash"></i>
                                 Delete
                             </a>
@@ -111,7 +216,11 @@
             </tbody>
         </table>
     </div>
+<<<<<<< HEAD
 </div>
 @* @section Scripts{
     <script src="~/js/book.js"></script>
 } *@
+=======
+</div>
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621

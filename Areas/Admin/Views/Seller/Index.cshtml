@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 ﻿@model List<Seller>;
+=======
+﻿@* @model List<Seller>;
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-black bg-gradient m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
+<<<<<<< HEAD
                 <h2 class="text-white py-2">Category List</h2>
+=======
+                <h2 class="text-white py-2">Seller List</h2>
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
             </div>
         </div>
     </div>
@@ -12,9 +20,19 @@
             <div class="col-6">
             </div>
             <div class="col-6 text-end">
+<<<<<<< HEAD
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
                 <a asp-controller="Seller" asp-action="Create" class="btn btn-primary">
+========
+                <a asp-controller="Book" asp-action="CreateUpdate" class="btn btn-primary">
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
                     <i class="bi bi-plus-circle"></i>
                     Create new Category
+=======
+                <a asp-controller="Seller" asp-action="CreateUpdate" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i>
+                    Create new Seller
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                 </a>
             </div>
         </div>
@@ -28,7 +46,15 @@
                         PhoneNumber
                     </th>
                     <th>
+<<<<<<< HEAD
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
                         Email
+========
+                        Description
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+=======
+                        Email
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                     </th>
                     <th>
                         Avatar
@@ -39,10 +65,27 @@
                     <th>
                         IsValid
                     </th>
+<<<<<<< HEAD
+                    <th>
+                        FrontBookUrl
+                    </th>
+                    <th>
+                        BackBookUrl
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
+                @foreach (var obj in Model) 
+========
+                @foreach (var obj in Model)
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+=======
                 </tr>
             </thead>
             <tbody>
                 @foreach (var obj in Model) 
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                 {
                     <tr>
                         <td>
@@ -55,10 +98,28 @@
                             @obj.Email
                         </td>
                         <td>
+<<<<<<< HEAD
                             @obj.Avatar
                         </td>
                         <td>
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
                             @obj.Address
+========
+                            @if (obj.Condition)
+                            {
+                                <span class="badge bg-success">Good</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Bad</span>
+                            }
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+=======
+                            <img src="@obj.Avatar" alt="Avatar" width="100" />
+                        </td>
+                        <td>
+                            @obj.Address
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                         </td>
                         <td>
                             @if (obj.IsValid)
@@ -70,11 +131,32 @@
                                 <span class="badge bg-danger">Bad</span>
                             }
                         </td>
+<<<<<<< HEAD
+                        <td>
+                            <img src="@obj.FrontBookUrl" alt="Avatar" width="100" />
+                        </td>
+                        <td>
+                            <img src="@obj.BackBookUrl" alt="Avatar" width="100" />
+                        </td>
                         <td class="w-75 btn-group" role="group">
+<<<<<<<< HEAD:Areas/Admin/Views/Seller/Index.cshtml
                             <a asp-controller="Seller" asp-action="Edit" asp-route-Id="@obj.SellerID" class="btn btn-primary mx-2">
                                 <i class="bi bi-pencil-square"></i>Edit
                             </a>
                             <a asp-controller="Seller" asp-action="Delete" asp-route-Id="@obj.SellerID" class="btn btn-danger mx-2">
+========
+                            <a asp-controller="Book" asp-action="CreateUpdate" asp-route-Id="@obj.BookID" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                            <a asp-controller="Book" asp-action="Delete" asp-route-Id="@obj.BookID" class="btn btn-danger mx-2">
+>>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621:Areas/Admin/Views/Book/Index.cshtml
+=======
+                        <td class="w-75 btn-group" role="group">
+                            <a asp-controller="Seller" asp-action="CreateUpdate" asp-route-Id="@obj.SellerID" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                            <a asp-controller="Seller" asp-action="Delete" asp-route-Id="@obj.SellerID" class="btn btn-danger mx-2">
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
                                 <i class="bi bi-trash"></i>
                                 Delete
                             </a>
@@ -85,4 +167,9 @@
             </tbody>
         </table>
     </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+ *@
+>>>>>>> a8f2e274b68d90f2bfb690a815c8ca6508ac7621
