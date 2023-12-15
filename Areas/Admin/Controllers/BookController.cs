@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿//using App_Dev_1670.Data;
 //using App_Dev_1670.Models;
 //using App_Dev_1670.Models.ViewModels;
@@ -12,6 +13,26 @@
 //    {
 //        private readonly IUnitOfWork _unitOfWork;
 //        private readonly IWebHostEnvironment _webHostEnvironment;
+=======
+﻿using App_Dev_1670.Data;
+using App_Dev_1670.Models;
+using App_Dev_1670.Models.ViewModels;
+using App_Dev_1670.Repository.IRepository;
+using App_Dev_1670.Utility;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace App_Dev_1670.Areas.Admin.Controllers
+{
+    [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
+
+    public class BookController : Controller
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+>>>>>>> Stashed changes
 
 //        public BookController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
 //        {

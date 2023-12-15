@@ -11,8 +11,9 @@ namespace App_Dev_1670.Models
         [Key]
         public int BookID { get; set; }
 
-        [Required]
+        [ValidateNever]
         public string Title { get; set; }
+
         public string Author { get; set; }
         public string Description { get; set; }
         public double? Price { get; set; }
@@ -38,11 +39,19 @@ namespace App_Dev_1670.Models
         public List<Order> ListOfOrders { get; } = new List<Order>();
         [ValidateNever]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public User? Seller {  get; set; }
         public String? SellerID { get; set; }
 
 
         public List<User> ListOfCustomers{ get; }=new List<User>();
+=======
+        public ApplicationUser? Seller { get; set; }
+        public String? SellerID { get; set; }
+
+
+        public List<ApplicationUser> ListOfCustomers { get; } = new List<ApplicationUser>();
+>>>>>>> Stashed changes
 =======
         public ApplicationUser? Seller { get; set; }
         public String? SellerID { get; set; }

@@ -6,8 +6,13 @@ using App_Dev_1670.Models;
 =======
 using App_Dev_1670.Repository.IRepository;
 using App_Dev_1670.Repository;
+<<<<<<< Updated upstream
 using Microsoft.AspNetCore.Identity.UI.Services;
 using App_Dev_1670.Utility;
+>>>>>>> Stashed changes
+=======
+using App_Dev_1670.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 >>>>>>> Stashed changes
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +25,7 @@ builder.Services.AddDbContext<ApplicationDatabase>(options => options.UseSqlServ
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDatabase>().AddDefaultTokenProviders();
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDatabase>().AddDefaultTokenProviders();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 //builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 =======
@@ -30,6 +36,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
     options.SignIn.RequireConfirmedPhoneNumber = false;
     
 
+})
+>>>>>>> Stashed changes
+=======
+//builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
+    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
 })
 >>>>>>> Stashed changes
     .AddEntityFrameworkStores<ApplicationDatabase>()
@@ -61,7 +76,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
 app.UseAuthentication();
 app.MapRazorPages();

@@ -11,13 +11,16 @@ namespace App_Dev_1670.Data
     public class ApplicationDatabase : IdentityDbContext<IdentityUser> //dùng xuyên suốt hệ thống
     {
 
-
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Order> OrderDetails { get; set; }
         public DbSet<Order> OrderHeader { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Payment> Payments { get; set; }
+<<<<<<< Updated upstream
         public DbSet<ApplicationUser> Users { get; set; }
+=======
+>>>>>>> Stashed changes
 
         public ApplicationDatabase(DbContextOptions<ApplicationDatabase> options) : base(options) //đưa tất cả options vào base
         {

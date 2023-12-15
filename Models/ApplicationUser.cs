@@ -17,7 +17,7 @@ namespace App_Dev_1670.Models
         public List<Book> SellBooks { get; } = new();
 
         //used by User Role
-        public List<Book> BooksInCart { get; }
+        public List<Book> BooksInCart { get; } = new();
 
         public List<Order> ListOrders { get; } = new();
     }

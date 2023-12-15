@@ -7,4 +7,8 @@
         public const string Role_Admin = "Admin";
 
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
