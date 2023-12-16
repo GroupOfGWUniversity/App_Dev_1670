@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace App_Dev_1670.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles =SD.Role_Admin)]
+    //[Authorize(Roles =SD.Role_Admin)]
     public class BookController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -26,6 +26,10 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category").ToList();
 
             return View(books);
+        }
+        public IActionResult Details()
+        {
+            return View();
         }
         public IActionResult CreateUpdate(int? id)
         {

@@ -18,7 +18,7 @@ namespace App_Dev_1670.Models
 
         public string Author { get; set; }
         public string Description { get; set; }
-        public double? Price { get; set; }
+        public double Price { get; set; }
 
         [ValidateNever]
 
