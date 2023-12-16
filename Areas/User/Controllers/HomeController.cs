@@ -1,11 +1,15 @@
 using App_Dev_1670.Models;
 using App_Dev_1670.Repository.IRepository;
+using App_Dev_1670.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace App_Dev_1670.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize(Roles = SD.Role_Customer)]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
