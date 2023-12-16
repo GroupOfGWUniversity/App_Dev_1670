@@ -1,19 +1,20 @@
 ﻿
-@model Book
+@model Cart
 @{
     // Giảm giá 50%
-    double discounted1_50 = Model.Price - Model.Price * 0.2;
-    double discounted50_100 = Model.Price - Model.Price * 0.3;
-    double discounted100 = Model.Price - Model.Price * 0.4;
+    double discounted1_50 = Model.Book.Price - Model.Book.Price * 0.2;
+    double discounted50_100 = Model.Book.Price - Model.Book.Price * 0.3;
+    double discounted100 = Model.Book.Price - Model.Book.Price * 0.4;
 
 }
 <form method="post">
+    <input hidden asp-for="BookID"/>
     <div class="card shadow borderborder-0 mt-4 mb-4">
         <div class="card-header bg-secondary bg-gradient text-light py-4">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h3 class="text-white text-uppercase">@Model.Title</h3>
-                    <p class="text-white-50 fw-semibold mb-0">from @Model.Category.Name</p>
+                    <h3 class="text-white text-uppercase">@Model.Book.Title</h3>
+                    <p class="text-white-50 fw-semibold mb-0">from @Model.Book.Category.Name</p>
                 </div>
             </div>
         </div>
@@ -28,21 +29,21 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-3 offset-1 text-center mb-3">
-                        <img src="@Model.FrontBookUrl" width="100%" class="rounded" />
-                        <img src="@Model.BackBookUrl" width="100%" class="rounded" />
+                        <img src="@Model.Book.FrontBookUrl" width="100%" class="rounded" />
+                        <img src="@Model.Book.BackBookUrl" width="100%" class="rounded" />
                     </div>
                     <div class="col-12 col-lg-6 offset-lg-1">
                         <div class="col-12 col-md-6 pb-4">
-                            <span class="badge" style="color:red;font-size:30px">@Model.Title</span>
+                            <span class="badge" style="color:red;font-size:30px">@Model.Book.Title</span>
                         </div>
                         <div class="row ps-2">
-                            <h6 class="text-dark text-opacity-50">@Model.Author</h6>
+                            <h6 class="text-dark text-opacity-50">@Model.Book.Author</h6>
                         </div>
                         <div class="row ps-2">
                             <h6 class="text-dark text-opacity-50 pb-2">
                                 List Price:
                                 <span class="text-decoration-line-through">
-                                    @Model.Price.ToString("c")
+                                    @Model.Book.Price.ToString("c")
                                 </span>
                             </h6>
                         </div>
@@ -75,7 +76,7 @@
                             </div>
                         </div>
                         <div class="row p-lg-2 my-3">
-                            <p class="text-secondary lh-sm">@Html.Raw(Model.Description)</p>
+                            <p class="text-secondary lh-sm">@Html.Raw(Model.Book.Description)</p>
                         </div>
                         <div class="row pl-2 mb-3">
                             <div class="col-md-4">
@@ -83,7 +84,7 @@
                                     <span class="input-group-text bg-primary text-white border-0 fw-semibold" id="inputGroup-sizing-default">
                                         Count
                                     </span>
-                                    <input type="number" value="1" class="form-control text-end" aria-lable="Sizing example input" aria-describedly="inputGroup-sizing-default" />
+                                    <input asp-for="Count"  type="number" value="1" class="form-control text-end" aria-lable="Sizing example input" aria-describedly="inputGroup-sizing-default" />
                                 </div>
                             </div>
                         </div>

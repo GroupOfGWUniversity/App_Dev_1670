@@ -4,7 +4,7 @@
     {
         ICategory Category { get; }
         IBook Book { get; }
-
+        ICart Cart { get; }
         //ICompanyRepository Company { get; }
         //IShoppingCartRepository ShoppingCart { get; }
         //IApplicationUserRepository ApplicationUser { get; }
