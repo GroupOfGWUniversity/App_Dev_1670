@@ -18,6 +18,7 @@ namespace App_Dev_1670.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ApplicationUser> Users { get; set; }
+        
 
         public ApplicationDatabase(DbContextOptions<ApplicationDatabase> options) : base(options) //đưa tất cả options vào base
         {
