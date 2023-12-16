@@ -29,7 +29,7 @@ namespace App_Dev_1670.Areas.User.Controllers
 
         public IActionResult Details(int productId)
         {
-            Book product = _unitOfWork.Book.Get(u => u.CategoryID == productId, includeProperty: "Category");
+            Book product = _unitOfWork.Book.Get(u => u.BookID == productId, includeProperty: "Category");
             return View(product);
         }
 

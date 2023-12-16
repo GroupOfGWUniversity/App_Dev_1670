@@ -11,7 +11,6 @@ using System.Security.Claims;
 namespace App_Dev_1670.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles =SD.Role_Customer)]
     public class BookController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -25,6 +24,13 @@ namespace App_Dev_1670.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category").ToList();
+            var userRoles = User.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList();
+
+            foreach (var role in userRoles)
+            {
+                Console.WriteLine($"User is in role:{role}");
+            }
+
 
             return View(books); 
         }
@@ -123,8 +129,6 @@ namespace App_Dev_1670.Areas.Admin.Controllers
                     TempData["Success"] = "Product Update Successfully";
 
                 }
-                obj.Book.SellerID = "a6cd5154-feea-4d7f-8d0a-49ac02cf8616";
-               // _unitOfWork.Book.Add(obj.Book);
                 _unitOfWork.Save(); // lưu lại product vào danh sách và lưu vào database
                 return RedirectToAction("Index"); //trả lại trang category
             }
