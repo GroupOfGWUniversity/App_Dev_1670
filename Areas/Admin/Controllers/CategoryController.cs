@@ -1,11 +1,16 @@
 ﻿using App_Dev_1670.Data;
 using App_Dev_1670.Models;
 using App_Dev_1670.Repository.IRepository;
+using App_Dev_1670.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App_Dev_1670.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Customer)]
+
+
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

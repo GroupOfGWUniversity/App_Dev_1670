@@ -17,7 +17,7 @@ namespace App_Dev_1670.Data
         public DbSet<Order> OrderHeader { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Cart> Carts { get; set; } 
 
         public ApplicationDatabase(DbContextOptions<ApplicationDatabase> options) : base(options) //đưa tất cả options vào base
         {
@@ -28,13 +28,6 @@ namespace App_Dev_1670.Data
         {
             
             base.OnModelCreating(modelBuilder);
-
-
-            //\\Users(Customer) <-> Books (Many -> Cart <- Many)
-            modelBuilder.Entity<ApplicationUser>()
-              .HasMany(e => e.BooksInCart)
-              .WithMany(e => e.ListOfCustomers)
-              .UsingEntity("Cart");
 
             //\\User(Seller) -> Books (One -> Many)
             modelBuilder.Entity<Book>()
