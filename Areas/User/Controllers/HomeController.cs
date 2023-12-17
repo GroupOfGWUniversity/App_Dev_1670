@@ -32,7 +32,7 @@ namespace App_Dev_1670.Areas.User.Controllers
         {
             Cart cart = new()
             {
-                Book = _unitOfWork.Book.Get(u => u.CategoryID == productId, includeProperty: "Category"),
+                Book = _unitOfWork.Book.Get(u => u.BookID == productId, includeProperty: "Category"),
                 Count = 1,
                 BookID = productId
 

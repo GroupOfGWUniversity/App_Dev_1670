@@ -123,7 +123,7 @@ namespace App_Dev_1670.Areas.Admin.Controllers
                     TempData["Success"] = "Product Update Successfully";
 
                 }
-                obj.Book.SellerID = "a6cd5154-feea-4d7f-8d0a-49ac02cf8616";
+               // obj.Book.SellerID = "a6cd5154-feea-4d7f-8d0a-49ac02cf8616";
                // _unitOfWork.Book.Add(obj.Book);
                 _unitOfWork.Save(); // lưu lại product vào danh sách và lưu vào database
                 return RedirectToAction("Index"); //trả lại trang category
