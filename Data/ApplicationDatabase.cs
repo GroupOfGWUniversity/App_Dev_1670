@@ -23,7 +23,7 @@ namespace App_Dev_1670.Data
 
         public DbSet<Cart> Carts { get; set; } 
 
-
+        public DbSet<RequestCategory> RequestCategories { get; set; }
         public ApplicationDatabase(DbContextOptions<ApplicationDatabase> options) : base(options) //đưa tất cả options vào base
         {
 

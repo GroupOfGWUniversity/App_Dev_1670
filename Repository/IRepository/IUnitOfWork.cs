@@ -6,6 +6,7 @@
         IBook Book { get; }
         ICart Cart { get; }
         IApplicationUser ApplicationUser { get; }
+        IRequest Request { get; }
         //ICompanyRepository Company { get; }
         //IShoppingCartRepository ShoppingCart { get; }
         //IApplicationUserRepository ApplicationUser { get; }

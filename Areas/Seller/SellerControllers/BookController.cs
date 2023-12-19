@@ -12,6 +12,7 @@ namespace App_Dev_1670.Areas.Seller.Controllers
 {
     [Area("Seller")]
     [Authorize(Roles =SD.Role_Seller)]
+
     public class BookController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

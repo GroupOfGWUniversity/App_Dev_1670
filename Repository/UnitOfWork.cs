@@ -10,6 +10,7 @@ namespace App_Dev_1670.Repository
         public ICategory Category { get; set; }
          public ICart Cart { get; set; }
         public IApplicationUser ApplicationUser { get; set; }  
+        public IRequest Request { get; set; }
         public UnitOfWork(ApplicationDatabase db)
         {
             _db = db;
@@ -17,6 +18,7 @@ namespace App_Dev_1670.Repository
             Category = new CategoryRepository(_db);
             Cart = new CartRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
+            Request = new RequestCategoryRepository(_db);
         }
 
         public void Save()
