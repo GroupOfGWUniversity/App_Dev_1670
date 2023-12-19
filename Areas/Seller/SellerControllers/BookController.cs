@@ -26,10 +26,8 @@ namespace App_Dev_1670.Areas.Seller.Controllers
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<ApplicationUser> users = _unitOfWork.ApplicationUser.GetAll(u=>u.Id==userId).ToList();
             List<Book> books = _unitOfWork.Book.GetAll(u => u.SellerID == userId).ToList();
-            SaBVM saBVM = new SaBVM(books, users);
-            return View(saBVM);
+            return View(books);
         }
         public IActionResult CreateUpdate(int? id)
         {
@@ -62,6 +60,7 @@ namespace App_Dev_1670.Areas.Seller.Controllers
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+                Console.WriteLine(user);
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (frontBookImage != null)
                 {
@@ -113,14 +112,15 @@ namespace App_Dev_1670.Areas.Seller.Controllers
                 if (obj.Book.BookID == 0)
                 {
                     _unitOfWork.Book.Add(obj.Book); //thêm Product
-                    obj.Book.Seller = user;
                     TempData["Success"] = "Product Create Successfully";
                 }
                 else
                 {
+                   
                     _unitOfWork.Book.Update(obj.Book); //update Product
                     TempData["Success"] = "Product Update Successfully";
                 }
+                obj.Book.Seller = user;
                 _unitOfWork.Save(); // lưu lại product vào danh sách và lưu vào database
                 return RedirectToAction("Index"); //trả lại trang category
             }
