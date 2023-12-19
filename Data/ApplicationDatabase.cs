@@ -13,7 +13,7 @@ namespace App_Dev_1670.Data
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<Order> OrderDetails { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Order> OrderHeader { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Payment> Payments { get; set; }
@@ -47,20 +47,28 @@ namespace App_Dev_1670.Data
               .WithMany(e => e.ListOfUsers);
 
 
-            //\\Orders <-> Books (Many -> OrderBook <- Many)
-            modelBuilder.Entity<Order>()
-                .HasMany(e => e.BooksInOrder)
-             .WithMany(e => e.ListOfOrders);
-
-
-
-
             //\\Category -> Books (One -> Many)
             modelBuilder.Entity<Book>()
              .HasOne(e => e.Category)
              .WithMany(e => e.Books)
              .HasForeignKey(e => e.CategoryID);
 
+            //update OrderDetails
+
+
+            //\\Order -> OrderBook (One -> Many)
+            modelBuilder.Entity<OrderDetails>()
+             .HasOne(e => e.Order)
+             .WithMany(e => e.BooksInOrder)
+             .HasForeignKey(e => e.OrderID);
+            //\\Book -> OrderBook (One -> Many)
+            modelBuilder.Entity<OrderDetails>()
+             .HasOne(e => e.Book)
+             .WithMany(e => e.ListOfOrders)
+             .HasForeignKey(e => e.BookID);
+
+
+            //update OrderDetails
 
 
             //\\Order -> Payment (One -> One)

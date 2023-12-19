@@ -14,10 +14,10 @@ namespace App_Dev_1670.Repository
         public UnitOfWork(ApplicationDatabase db)
         {
             _db = db;
+            ApplicationUser = new ApplicationUserRepository(_db);
             Book = new BookRepository(_db);
             Category = new CategoryRepository(_db);
             Cart = new CartRepository(_db);
-            ApplicationUser = new ApplicationUserRepository(_db);
             Request = new RequestCategoryRepository(_db);
         }
 
