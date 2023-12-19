@@ -60,8 +60,8 @@ namespace App_Dev_1670.Areas.Seller.Controllers
 
             if (ModelState.IsValid)
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+                /*var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);*/
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (frontBookImage != null)
                 {
@@ -113,7 +113,7 @@ namespace App_Dev_1670.Areas.Seller.Controllers
                 if (obj.Book.BookID == 0)
                 {
                     _unitOfWork.Book.Add(obj.Book); //thêm Product
-                    obj.Book.Seller = user;
+                   /* obj.Book.Seller = user;*/
                     TempData["Success"] = "Product Create Successfully";
                 }
                 else
