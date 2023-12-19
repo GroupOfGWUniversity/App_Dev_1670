@@ -30,7 +30,8 @@ namespace App_Dev_1670.Areas.User.Controllers
             CartVM = new()
             {
                 ListCart = _unitOfWork.Cart.GetAll(u => u.ApplicationUserID == userId,
-                includeProperty: "Book")
+                includeProperty: "Book"),
+                Order = new()
             };
 
             foreach (var cart in CartVM.ListCart)
@@ -38,12 +39,38 @@ namespace App_Dev_1670.Areas.User.Controllers
                 //cart.Book.FrontBookUrl = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
 
                 cart.Price = GetPriceBasedOnQuantity(cart);
-                CartVM.OrderTotal += (cart.Price * cart.Count);
+                CartVM.Order.Total += (cart.Price * cart.Count);
             }
             return View(CartVM);
         }
         public IActionResult Summary()
         {
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            CartVM = new()
+            {
+                ListCart = _unitOfWork.Cart.GetAll(u => u.ApplicationUserID == userId,
+                includeProperty: "Book"),
+                Order = new()
+            };
+
+          /*  CartVM.Order.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+            CartVM.Order.Name = CartVM.Order.ApplicationUser.Name;
+            CartVM.Order.PhoneNumber = CartVM.Order.ApplicationUser.PhoneNumber;
+            CartVM.Order.StreetAddress = CartVM.Order.ApplicationUser.Gender;
+            CartVM.Order.City = CartVM.Order.ApplicationUser.City;
+            CartVM.Order.DateOfBirth = CartVM.Order.ApplicationUser.DateOfBirth;*/
+            
+
+
+            foreach (var cart in CartVM.ListCart)
+            {
+                //cart.Book.FrontBookUrl = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
+
+                cart.Price = GetPriceBasedOnQuantity(cart);
+                CartVM.Order.Total += (cart.Price * cart.Count);
+            }
             return View();
         }
                 
