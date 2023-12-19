@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace App_Dev_1670.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = SD.Role_Customer)]
+    [Authorize(Roles = SD.Role_Admin)]
 
 
     public class CategoryController : Controller

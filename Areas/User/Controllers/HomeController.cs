@@ -37,7 +37,6 @@ namespace App_Dev_1670.Areas.User.Controllers
                 BookID = productId
 
             };
-           
             return View(cart);
         }
         [HttpPost]

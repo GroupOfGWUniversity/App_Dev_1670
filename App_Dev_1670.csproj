@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\images\book\" />
+    <Folder Include="wwwroot\icon\" />
   </ItemGroup>
 
 </Project>

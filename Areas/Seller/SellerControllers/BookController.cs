@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
-namespace App_Dev_1670.Areas.Admin.Controllers
+namespace App_Dev_1670.Areas.Seller.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles =SD.Role_Customer)]
+    [Area("Seller")]
+    [Authorize(Roles =SD.Role_Seller)]
+
     public class BookController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -24,13 +25,11 @@ namespace App_Dev_1670.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Book> books = _unitOfWork.Book.GetAll(includeProperty: "Category").ToList();
-
-            return View(books); 
-        }
-        public IActionResult Details()
-        {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<ApplicationUser> users = _unitOfWork.ApplicationUser.GetAll(u=>u.Id==userId).ToList();
+            List<Book> books = _unitOfWork.Book.GetAll(u => u.SellerID == userId).ToList();
+            SaBVM saBVM = new SaBVM(books, users);
+            return View(saBVM);
         }
         public IActionResult CreateUpdate(int? id)
         {
@@ -61,8 +60,9 @@ namespace App_Dev_1670.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-
                 if (frontBookImage != null)
                 {
                     // Xử lý frontimage
@@ -110,21 +110,17 @@ namespace App_Dev_1670.Areas.Admin.Controllers
 
                     obj.Book.BackBookUrl = @"\images\book\" + backImageFileName;
                 }
-
                 if (obj.Book.BookID == 0)
                 {
                     _unitOfWork.Book.Add(obj.Book); //thêm Product
+                    obj.Book.Seller = user;
                     TempData["Success"] = "Product Create Successfully";
-
                 }
                 else
                 {
                     _unitOfWork.Book.Update(obj.Book); //update Product
                     TempData["Success"] = "Product Update Successfully";
-
                 }
-               // obj.Book.SellerID = "a6cd5154-feea-4d7f-8d0a-49ac02cf8616";
-               // _unitOfWork.Book.Add(obj.Book);
                 _unitOfWork.Save(); // lưu lại product vào danh sách và lưu vào database
                 return RedirectToAction("Index"); //trả lại trang category
             }
