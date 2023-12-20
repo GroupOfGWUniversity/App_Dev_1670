@@ -116,6 +116,7 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
             public string? Gender { get; set; }
             public DateTime? DateOfBirth { get; set; }
             public string? StreetAddress { get; set; }
+            public string? PhoneNumber { get; set; }
             public string? City { get; set; }
         }
 
@@ -148,6 +149,7 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
                 user.City = Input.City;
                 user.Name = Input.Name;
                 user.DateOfBirth = (Input.DateOfBirth.Value);
+                user.PhoneNumber = Input.PhoneNumber;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
