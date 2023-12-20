@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace App_Dev_1670.Migrations
 {
     /// <inheritdoc />
-    public partial class addCartModel : Migration
+    public partial class UpdateOrderDetails : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,6 +81,20 @@ namespace App_Dev_1670.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Payments", x => x.PaymentID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequestCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -324,24 +338,28 @@ namespace App_Dev_1670.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookOrder",
+                name: "OrderDetails",
                 columns: table => new
                 {
-                    BooksInOrderBookID = table.Column<int>(type: "int", nullable: false),
-                    ListOfOrdersOrderID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderID = table.Column<int>(type: "int", nullable: false),
+                    BookID = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookOrder", x => new { x.BooksInOrderBookID, x.ListOfOrdersOrderID });
+                    table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookOrder_Books_BooksInOrderBookID",
-                        column: x => x.BooksInOrderBookID,
+                        name: "FK_OrderDetails_Books_BookID",
+                        column: x => x.BookID,
                         principalTable: "Books",
                         principalColumn: "BookID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookOrder_Order_ListOfOrdersOrderID",
-                        column: x => x.ListOfOrdersOrderID,
+                        name: "FK_OrderDetails_Order_OrderID",
+                        column: x => x.OrderID,
                         principalTable: "Order",
                         principalColumn: "OrderID",
                         onDelete: ReferentialAction.Cascade);
@@ -397,11 +415,6 @@ namespace App_Dev_1670.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookOrder_ListOfOrdersOrderID",
-                table: "BookOrder",
-                column: "ListOfOrdersOrderID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Books_CategoryID",
                 table: "Books",
                 column: "CategoryID");
@@ -426,55 +439,22 @@ namespace App_Dev_1670.Migrations
                 table: "Order",
                 column: "PaymentID",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_BookID",
+                table: "OrderDetails",
+                column: "BookID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderID",
+                table: "OrderDetails",
+                column: "OrderID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ApplicationUserBook");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationUserOrder");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "BookOrder");
-
-            migrationBuilder.DropTable(
-                name: "Carts");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Order");
-
-            migrationBuilder.DropTable(
-                name: "Books");
-
-            migrationBuilder.DropTable(
-                name: "Payments");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
+            
         }
     }
 }

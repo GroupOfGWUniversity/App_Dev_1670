@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App_Dev_1670.Migrations
 {
     [DbContext(typeof(ApplicationDatabase))]
-    [Migration("20231217203846_updateCartEntity")]
-    partial class updateCartEntity
+    [Migration("20231219165348_UpdateOrderDetails")]
+    partial class UpdateOrderDetails
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,6 +158,35 @@ namespace App_Dev_1670.Migrations
                     b.ToTable("Order");
                 });
 
+            modelBuilder.Entity("App_Dev_1670.Models.OrderDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("OrderID");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("App_Dev_1670.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentID")
@@ -178,6 +207,27 @@ namespace App_Dev_1670.Migrations
                     b.HasKey("PaymentID");
 
                     b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("App_Dev_1670.Models.RequestCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RequestCategories");
                 });
 
             modelBuilder.Entity("ApplicationUserBook", b =>
@@ -208,21 +258,6 @@ namespace App_Dev_1670.Migrations
                     b.HasIndex("ListOrdersOrderID");
 
                     b.ToTable("ApplicationUserOrder");
-                });
-
-            modelBuilder.Entity("BookOrder", b =>
-                {
-                    b.Property<int>("BooksInOrderBookID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ListOfOrdersOrderID")
-                        .HasColumnType("int");
-
-                    b.HasKey("BooksInOrderBookID", "ListOfOrdersOrderID");
-
-                    b.HasIndex("ListOfOrdersOrderID");
-
-                    b.ToTable("BookOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -438,13 +473,15 @@ namespace App_Dev_1670.Migrations
                     b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateOfBirth")
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
@@ -498,6 +535,25 @@ namespace App_Dev_1670.Migrations
                     b.Navigation("Payment");
                 });
 
+            modelBuilder.Entity("App_Dev_1670.Models.OrderDetails", b =>
+                {
+                    b.HasOne("App_Dev_1670.Models.Book", "Book")
+                        .WithMany("ListOfOrders")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App_Dev_1670.Models.Order", "Order")
+                        .WithMany("BooksInOrder")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("ApplicationUserBook", b =>
                 {
                     b.HasOne("App_Dev_1670.Models.Book", null)
@@ -524,21 +580,6 @@ namespace App_Dev_1670.Migrations
                     b.HasOne("App_Dev_1670.Models.Order", null)
                         .WithMany()
                         .HasForeignKey("ListOrdersOrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BookOrder", b =>
-                {
-                    b.HasOne("App_Dev_1670.Models.Book", null)
-                        .WithMany()
-                        .HasForeignKey("BooksInOrderBookID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App_Dev_1670.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("ListOfOrdersOrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -594,9 +635,19 @@ namespace App_Dev_1670.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("App_Dev_1670.Models.Book", b =>
+                {
+                    b.Navigation("ListOfOrders");
+                });
+
             modelBuilder.Entity("App_Dev_1670.Models.Category", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("App_Dev_1670.Models.Order", b =>
+                {
+                    b.Navigation("BooksInOrder");
                 });
 
             modelBuilder.Entity("App_Dev_1670.Models.Payment", b =>

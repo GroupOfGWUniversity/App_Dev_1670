@@ -38,7 +38,7 @@ namespace App_Dev_1670.Models
 
 
         [ValidateNever]
-        public List<Order> ListOfOrders { get; } = new();
+        public List<OrderDetails> ListOfOrders { get; } = new();
         [ValidateNever]
         public ApplicationUser? Seller {  get; set; }
         public String? SellerID { get; set; }

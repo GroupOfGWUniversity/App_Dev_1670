@@ -3,7 +3,8 @@
     public class CartVM
     {
         public IEnumerable<Cart> ListCart { get; set; }
-        public double OrderTotal { get; set; }
+        public Order Order { get; set; }
+        
 
     }
 }
