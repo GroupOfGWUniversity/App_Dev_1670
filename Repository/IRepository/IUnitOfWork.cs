@@ -1,4 +1,6 @@
-﻿namespace App_Dev_1670.Repository.IRepository
+﻿using App_Dev_1670.Repository.IRepository;
+
+namespace App_Dev_1670.Repository.IRepository
 {
     public interface IUnitOfWork
     {
@@ -7,7 +9,8 @@
         IApplicationUser ApplicationUser { get; }
         IBook Book { get; }
         IRequest Request { get; }
-
+        //IOrderDetai OrderDetai { get; set; }
+        //IOrderHeader OrderHeader { get; set; }
         //IOrder Order { get; }
         //IOrderDetails OrderDetails { get; }
         //ICompanyRepository Company { get; }

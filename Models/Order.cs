@@ -15,9 +15,15 @@ namespace App_Dev_1670.Models
         public double? ShippingFee { get; set; }
         public double? SubTotal { get; set; }
         public double Total { get; set; }
+        public string ApplicationUserID { get; set; }
+        [ForeignKey("ApplicationUserID")]
+        [ValidateNever]
+        public ApplicationUser ApplicationUser { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public DateTime PaymentDueDate { get; set; }
+        public string? SessionId { get; set; }
+        public string? PaymentIntentId { get; set; }
 
-        public Payment? Payment { get; set; }
-        public int PaymentID {  get; set; }
 
         [Required]
         public string PhoneNumber { get; set; }
@@ -34,7 +40,7 @@ namespace App_Dev_1670.Models
         //Relationship with Book Table
         public List<OrderDetails> BooksInOrder { get; } = new();
         //contain 2,more users (seller, customer)
-        public List<ApplicationUser> ListOfUsers { get; } = new();
+        //public List<ApplicationUser> ListOfUsers { get; } = new();
 
        /* public string ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserID")]

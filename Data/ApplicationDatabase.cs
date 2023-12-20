@@ -16,7 +16,6 @@ namespace App_Dev_1670.Data
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Order> OrderHeader { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Payment> Payments { get; set; }
 
         
 
@@ -42,10 +41,11 @@ namespace App_Dev_1670.Data
                 .HasForeignKey(e => e.SellerID)
                 .OnDelete(DeleteBehavior.SetNull);// khi xoá 1 Seller -> Trong Book -> SellerID= Null
 
-            //\\Users <-> Orders (Many -> UserOrder <- Many)
-            modelBuilder.Entity<ApplicationUser>()
-                 .HasMany(e => e.ListOrders)
-              .WithMany(e => e.ListOfUsers);
+            //\\User(Customer) <-> Orders (One -> Many)
+            modelBuilder.Entity<Order>()
+                 .HasOne(e => e.ApplicationUser)
+              .WithMany(e => e.ListOrders)
+            .HasForeignKey(e => e.ApplicationUserID);
 
 
             //\\Category -> Books (One -> Many)
@@ -71,12 +71,6 @@ namespace App_Dev_1670.Data
 
             //update OrderDetails
 
-
-            //\\Order -> Payment (One -> One)
-            modelBuilder.Entity<Payment>()
-                .HasOne(e => e.Order)
-                .WithOne(e => e.Payment)
-                .HasForeignKey<Order>(e => e.PaymentID);
 
            
         }

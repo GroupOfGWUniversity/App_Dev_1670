@@ -126,6 +126,10 @@ namespace App_Dev_1670.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
+                    b.Property<string>("ApplicationUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -143,11 +147,20 @@ namespace App_Dev_1670.Migrations
                     b.Property<DateTime>("OrderReceived")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PaymentID")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PaymentDueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("ShippingFee")
@@ -168,8 +181,7 @@ namespace App_Dev_1670.Migrations
 
                     b.HasKey("OrderID");
 
-                    b.HasIndex("PaymentID")
-                        .IsUnique();
+                    b.HasIndex("ApplicationUserID");
 
                     b.ToTable("OrderHeader");
                 });
@@ -201,28 +213,6 @@ namespace App_Dev_1670.Migrations
                     b.HasIndex("OrderID");
 
                     b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("App_Dev_1670.Models.Payment", b =>
-                {
-                    b.Property<int>("PaymentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentID"));
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Method")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PaymentID");
-
-                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("App_Dev_1670.Models.RequestCategory", b =>
@@ -259,21 +249,6 @@ namespace App_Dev_1670.Migrations
                     b.HasIndex("ListOfCustomersId");
 
                     b.ToTable("ApplicationUserBook");
-                });
-
-            modelBuilder.Entity("ApplicationUserOrder", b =>
-                {
-                    b.Property<string>("ListOfUsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ListOrdersOrderID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ListOfUsersId", "ListOrdersOrderID");
-
-                    b.HasIndex("ListOrdersOrderID");
-
-                    b.ToTable("ApplicationUserOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -545,13 +520,13 @@ namespace App_Dev_1670.Migrations
 
             modelBuilder.Entity("App_Dev_1670.Models.Order", b =>
                 {
-                    b.HasOne("App_Dev_1670.Models.Payment", "Payment")
-                        .WithOne("Order")
-                        .HasForeignKey("App_Dev_1670.Models.Order", "PaymentID")
+                    b.HasOne("App_Dev_1670.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("ListOrders")
+                        .HasForeignKey("ApplicationUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Payment");
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("App_Dev_1670.Models.OrderDetails", b =>
@@ -584,21 +559,6 @@ namespace App_Dev_1670.Migrations
                     b.HasOne("App_Dev_1670.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("ListOfCustomersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ApplicationUserOrder", b =>
-                {
-                    b.HasOne("App_Dev_1670.Models.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("ListOfUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App_Dev_1670.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("ListOrdersOrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -669,14 +629,10 @@ namespace App_Dev_1670.Migrations
                     b.Navigation("BooksInOrder");
                 });
 
-            modelBuilder.Entity("App_Dev_1670.Models.Payment", b =>
-                {
-                    b.Navigation("Order")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("App_Dev_1670.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("ListOrders");
+
                     b.Navigation("SellBooks");
                 });
 #pragma warning restore 612, 618
