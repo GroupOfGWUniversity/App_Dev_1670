@@ -17,7 +17,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -108,6 +110,13 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public string? Name { get; set; }
+            public string? Gender { get; set; }
+            public DateTime? DateOfBirth { get; set; }
+            public string? StreetAddress { get; set; }
+            public string? City { get; set; }
         }
 
 
@@ -135,6 +144,10 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.StressAddress = Input.StreetAddress;
+                user.City = Input.City;
+                user.Name = Input.Name;
+                user.DateOfBirth = (Input.DateOfBirth.Value);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

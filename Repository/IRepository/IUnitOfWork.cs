@@ -8,8 +8,8 @@
         IBook Book { get; }
         IRequest Request { get; }
 
-        IOrder Order { get; }
-        IOrderDetails OrderDetails { get; }
+        //IOrder Order { get; }
+        //IOrderDetails OrderDetails { get; }
         //ICompanyRepository Company { get; }
         //IShoppingCartRepository ShoppingCart { get; }
         //IApplicationUserRepository ApplicationUser { get; }
