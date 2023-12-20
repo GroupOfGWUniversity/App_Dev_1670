@@ -15,6 +15,6 @@ namespace App_Dev_1670.Models
         public List<Book> BooksInCart { get; } = new();
 
         public List<Order> ListOrders { get; } = new();
-
+        //public string newPassword { get; set; }
     }
 }

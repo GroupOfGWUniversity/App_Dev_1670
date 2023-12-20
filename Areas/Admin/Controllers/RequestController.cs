@@ -49,7 +49,6 @@ namespace App_Dev_1670.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View();
-
         }
     }
 }

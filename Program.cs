@@ -23,7 +23,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedPhoneNumber = false;
 })
-    .AddEntityFrameworkStores<ApplicationDatabase>()
+    .AddEntityFrameworkStores<ApplicationDatabase>().AddDefaultUI()
                 .AddDefaultTokenProviders();
 
 
