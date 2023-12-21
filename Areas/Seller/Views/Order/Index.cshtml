@@ -1,4 +1,5 @@
-﻿<div class="card shadow border-0 my-4">
+﻿@model List<Order>
+<div class="card shadow border-0 my-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
@@ -13,17 +14,37 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Phone Number</th>
-                    <th>Email</th>
+                    <th>City</th>
+                    <th>StreetAddress</th>
                     <th>Status</th>
                     <th>Total</th>
                     <th></th>
                 </tr>
             </thead>
-        </table>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderID</td>
+                        <td>@order.Name</td>
+                        <td>@order.PhoneNumber</td>
+                        <td>@order.City</td>
+                        <td>@order.StreetAddress</td>
+                        <td>@order.Status</td>
+                        <td>@order.Total</td>
+                        <td class="w-75 btn-group" role="group">
+                            <a asp-controller="Book" asp-action="CreateUpdate" asp-route-Id="@order.OrderID" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                            <a asp-controller="Book" asp-action="Delete" asp-route-Id="@order.OrderID" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash"></i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
 
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-
-@section Scripts {
-    <script src="~/js/order.js"></script>
-}

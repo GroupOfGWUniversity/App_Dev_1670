@@ -21,15 +21,8 @@ namespace App_Dev_1670.Areas.Seller.SellerControllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<Order> books = _unitOfWork.Order.GetAll().ToList();
+            return View(books);
         }
-        #region API CALLS
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            List<Order> orders = _unitOfWork.Order.GetAll(includeProperty: "ApplicationUser").ToList();
-            return Json(new { data = orders });
-        }
-        #endregion
     }
 }
