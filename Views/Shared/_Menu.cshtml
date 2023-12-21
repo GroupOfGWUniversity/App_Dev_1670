@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    @if ((this.User.IsInRole("Customer")) && (this.User.IsInRole("Seller")))
+{
+        @if (ViewContext.ActionDescriptor.RouteValues["area"] == "Seller")
+        {
+        <div class="navbar-collapse collapse d-sm-inline-flex">
+            <ul class="navbar-nav flex-grow-1 justify-content-start w-25">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Seller" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Seller" asp-controller="Book" asp-action="Index">Book</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Seller" asp-controller="Home" asp-action="Order">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Seller" asp-controller="Request" asp-action="Index">RequestCategory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">Back To Home</a>
+                </li>
+            </ul>
+            <partial name="_login" />
+        </div>
+        }
+        else if (ViewContext.ActionDescriptor.RouteValues["area"] == "User")
+        {
+        <div class="navbar-collapse collapse d-sm-inline-flex">
+            <ul class="navbar-nav flex-grow-1 justify-content-start w-25">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="Order" asp-action="Index">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="Cart" asp-action="Index">Cart</a>
+                </li>
+            </ul>
+        </div>
+        <div class="justify-content-start">
+            <h1>abc</h1>
+            <partial name="_login" />
+
+        </div>
+        }
+    }
+    else if (this.User.IsInRole("Admin"))
+    {
+
+    <ul class="navbar-nav flex-grow-1 justify-content-start w-25">
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Request" asp-action="Index">Request from Seller</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
+        </li>
+    </ul>
+    <partial name="_login" />
+    }
+    else
+    {
+    <partial name="_login" />
+    }
+
+

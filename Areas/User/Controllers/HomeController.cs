@@ -9,6 +9,7 @@ using System.Security.Claims;
 namespace App_Dev_1670.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize(Roles =SD.Role_Customer)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
