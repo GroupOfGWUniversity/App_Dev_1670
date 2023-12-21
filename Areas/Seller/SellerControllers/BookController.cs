@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 namespace App_Dev_1670.Areas.Seller.Controllers
 {
@@ -121,7 +122,8 @@ namespace App_Dev_1670.Areas.Seller.Controllers
                 }
                 else
                 {
-                   
+                    obj.Book.SellerID = userId;
+
                     _unitOfWork.Book.Update(obj.Book); //update Product
                     TempData["Success"] = "Product Update Successfully";
                 }

@@ -21,6 +21,7 @@ namespace App_Dev_1670.Areas.Seller.SellerControllers
         }
         public IActionResult Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<Order> books = _unitOfWork.Order.GetAll().ToList();
             return View(books);
         }
