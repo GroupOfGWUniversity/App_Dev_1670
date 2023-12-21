@@ -7,7 +7,7 @@ namespace App_Dev_1670.Repository
     public class BookRepository : Repository<Book>, IBook
 
     {
-        private ApplicationDatabase _db;
+        private readonly ApplicationDatabase _db;
         public BookRepository(ApplicationDatabase db) : base(db)
         {
             _db = db;

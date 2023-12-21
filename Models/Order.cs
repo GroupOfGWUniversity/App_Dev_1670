@@ -50,8 +50,5 @@ namespace App_Dev_1670.Models
         [ForeignKey("ApplicationUserID")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; } */
-
-
-
     }
 }
