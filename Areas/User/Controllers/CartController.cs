@@ -56,7 +56,7 @@ namespace App_Dev_1670.Areas.User.Controllers
                 Order = new()
             };
 
-           CartVM.Order.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+            CartVM.Order.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
             CartVM.Order.Name = CartVM.Order.ApplicationUser.Name;
             CartVM.Order.PhoneNumber = CartVM.Order.ApplicationUser.PhoneNumber;
             CartVM.Order.StreetAddress = CartVM.Order.ApplicationUser.StressAddress;
@@ -102,14 +102,12 @@ namespace App_Dev_1670.Areas.User.Controllers
 
             if (applicationUser == null || applicationUser.Id == "0")
             {
-                // It is a regular customer 
-                CartVM.Order.PaymentStatus = SD.PaymentStatusPending;
+
                 CartVM.Order.Status = SD.StatusPending;
             }
             else
             {
-                // It is a company user
-                CartVM.Order.PaymentStatus = SD.PaymentStatusDelayedPayment;
+
                 CartVM.Order.Status = SD.StatusApproved;
             }
 
@@ -126,45 +124,10 @@ namespace App_Dev_1670.Areas.User.Controllers
                 };
                 _unitOfWork.OrderDetails.Add(orderDetail);
                 _unitOfWork.Save();
-
-
-            }
-            if (applicationUser == null || applicationUser.Id == "0")
-            {
-                var domain = "https://localhost:7049/";
-                var options = new SessionCreateOptions
-                {
-                    SuccessUrl = domain+ $"user/cart/OrderConfirmation?id={CartVM.Order.OrderID}",
-                    CancelUrl = domain+ "user/cart/index",
-                    LineItems = new List<SessionLineItemOptions>(),
-                    Mode = "payment",
-                };
-                foreach (var item in CartVM.ListCart)
-                {
-                    var sessionLineItem = new SessionLineItemOptions
-                    {
-                        PriceData = new SessionLineItemPriceDataOptions
-                        {
-                            UnitAmount = (long)(item.Price * 100), // $20.50 => 2050
-                            Currency = "usd",
-                            ProductData = new SessionLineItemPriceDataProductDataOptions
-                            {
-                                Name = item.Book.Title
-                            }
-                        },
-                        Quantity = item.Count
-                    };
-                    options.LineItems.Add(sessionLineItem);
-                }
-
-                var service = new SessionService();
-                Session session = service.Create(options);
-                _unitOfWork.Order.UpdateStripePaymentID(CartVM.Order.OrderID, session.Id, session.PaymentIntentId);
-                _unitOfWork.Save();
-                Response.Headers.Add("Location", session.Url);
-                return new StatusCodeResult(303);
+                _unitOfWork.Cart.Remove(cart);
 
             }
+            _unitOfWork.Save();
 
             return RedirectToAction(nameof(OrderConfirmation), new {id = CartVM.Order.OrderID});
         }

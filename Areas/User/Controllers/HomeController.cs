@@ -1,4 +1,4 @@
-using App_Dev_1670.Models;
+﻿using App_Dev_1670.Models;
 using App_Dev_1670.Repository.IRepository;
 using App_Dev_1670.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -49,7 +49,7 @@ namespace App_Dev_1670.Areas.User.Controllers
             Cart cartFromDb = _unitOfWork.Cart.Get(c => c.ApplicationUserID == userId && c.BookID == cart.BookID);
             if (cartFromDb != null)
             {
-                //shoping cart exists
+                
                 cartFromDb.Count += cart.Count;
                 _unitOfWork.Cart.Update(cartFromDb);
             }
@@ -57,12 +57,14 @@ namespace App_Dev_1670.Areas.User.Controllers
             {
                 // add cart record
                 _unitOfWork.Cart.Add(cart);
+
             }
             TempData["Success"] = "Cart updated successfully";
 
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult Privacy()
         {
             return View();
