@@ -91,6 +91,8 @@ namespace App_Dev_1670.Areas.User.Controllers
             }
 
             TempData["Success"] = "Cart updated successfully";
+            int itemCount = _unitOfWork.Cart.GetAll(c => c.ApplicationUserID == userId).Sum(c => c.Count);
+            TempData["ItemCount"] = itemCount;
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
