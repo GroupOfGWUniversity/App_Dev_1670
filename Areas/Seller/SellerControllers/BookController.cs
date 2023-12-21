@@ -60,8 +60,8 @@ namespace App_Dev_1670.Areas.Seller.Controllers
             {
 
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
-                Console.WriteLine(user);
+                //ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+                //Console.WriteLine(user);
 
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (frontBookImage != null)
@@ -113,6 +113,8 @@ namespace App_Dev_1670.Areas.Seller.Controllers
                 }
                 if (obj.Book.BookID == 0)
                 {
+                    obj.Book.SellerID = userId;
+
                     _unitOfWork.Book.Add(obj.Book); //thêm Product
 
                     TempData["Success"] = "Product Create Successfully";
@@ -123,7 +125,6 @@ namespace App_Dev_1670.Areas.Seller.Controllers
                     _unitOfWork.Book.Update(obj.Book); //update Product
                     TempData["Success"] = "Product Update Successfully";
                 }
-                obj.Book.Seller = user;
                 _unitOfWork.Save(); // lưu lại product vào danh sách và lưu vào database
                 return RedirectToAction("Index"); //trả lại trang category
             }
