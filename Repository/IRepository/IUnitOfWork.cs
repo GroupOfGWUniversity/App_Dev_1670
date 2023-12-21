@@ -9,10 +9,9 @@ namespace App_Dev_1670.Repository.IRepository
         IApplicationUser ApplicationUser { get; }
         IBook Book { get; }
         IRequest Request { get; }
-        //IOrderDetai OrderDetai { get; set; }
-        //IOrderHeader OrderHeader { get; set; }
-        //IOrder Order { get; }
-        //IOrderDetails OrderDetails { get; }
+       
+        IOrder Order { get; }
+        IOrderDetails OrderDetails { get; }
         //ICompanyRepository Company { get; }
         //IShoppingCartRepository ShoppingCart { get; }
         //IApplicationUserRepository ApplicationUser { get; }

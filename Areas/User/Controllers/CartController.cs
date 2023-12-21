@@ -5,6 +5,7 @@ using App_Dev_1670.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace App_Dev_1670.Areas.User.Controllers
@@ -15,7 +16,7 @@ namespace App_Dev_1670.Areas.User.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
        // private readonly IEmailSender _emailSender;
-       // [BindProperty]
+        [BindProperty]
         public CartVM CartVM { get; set; }
         public CartController(IUnitOfWork unitOfWork)
         {
@@ -55,13 +56,15 @@ namespace App_Dev_1670.Areas.User.Controllers
                 Order = new()
             };
 
-          /*  CartVM.Order.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+           CartVM.Order.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
             CartVM.Order.Name = CartVM.Order.ApplicationUser.Name;
             CartVM.Order.PhoneNumber = CartVM.Order.ApplicationUser.PhoneNumber;
-            CartVM.Order.StreetAddress = CartVM.Order.ApplicationUser.Gender;
+            CartVM.Order.StreetAddress = CartVM.Order.ApplicationUser.StressAddress;
+     
             CartVM.Order.City = CartVM.Order.ApplicationUser.City;
-            CartVM.Order.DateOfBirth = CartVM.Order.ApplicationUser.DateOfBirth;*/
-            
+            CartVM.Order.DateOfBirth = CartVM.Order.ApplicationUser.DateOfBirth;
+            CartVM.Order.Gender = CartVM.Order.ApplicationUser.Gender;
+
 
 
             foreach (var cart in CartVM.ListCart)
@@ -71,11 +74,108 @@ namespace App_Dev_1670.Areas.User.Controllers
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 CartVM.Order.Total += (cart.Price * cart.Count);
             }
-            return View();
+            return View(CartVM);
         }
-                
+        [HttpPost]
+        [ActionName("Summary")]
+        public IActionResult SummaryPOST()
+        {
 
-        public IActionResult Plus(int cartId)
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            CartVM.ListCart = _unitOfWork.Cart.GetAll(u => u.ApplicationUserID == userId,
+             includeProperty: "Book");
+            CartVM.Order.OrderDate = System.DateTime.Now;
+            CartVM.Order.ApplicationUserID = userId;
+
+            ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+            
+
+            foreach (var cart in CartVM.ListCart)
+            {
+                //cart.Book.FrontBookUrl = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
+
+                cart.Price = GetPriceBasedOnQuantity(cart);
+                CartVM.Order.Total += (cart.Price * cart.Count);
+            }
+
+            if (applicationUser == null || applicationUser.Id == "0")
+            {
+                // It is a regular customer 
+                CartVM.Order.PaymentStatus = SD.PaymentStatusPending;
+                CartVM.Order.Status = SD.StatusPending;
+            }
+            else
+            {
+                // It is a company user
+                CartVM.Order.PaymentStatus = SD.PaymentStatusDelayedPayment;
+                CartVM.Order.Status = SD.StatusApproved;
+            }
+
+            _unitOfWork.Order.Add(CartVM.Order);
+            _unitOfWork.Save();
+            foreach (var cart in CartVM.ListCart)
+            {
+                OrderDetails orderDetail = new()
+                {
+                    BookID = cart.BookID,
+                    OrderID = CartVM.Order.OrderID,
+                    Price = cart.Price,
+                    Count = cart.Count
+                };
+                _unitOfWork.OrderDetails.Add(orderDetail);
+                _unitOfWork.Save();
+
+
+            }
+            if (applicationUser == null || applicationUser.Id == "0")
+            {
+                var domain = "https://localhost:7049/";
+                var options = new SessionCreateOptions
+                {
+                    SuccessUrl = domain+ $"user/cart/OrderConfirmation?id={CartVM.Order.OrderID}",
+                    CancelUrl = domain+ "user/cart/index",
+                    LineItems = new List<SessionLineItemOptions>(),
+                    Mode = "payment",
+                };
+                foreach (var item in CartVM.ListCart)
+                {
+                    var sessionLineItem = new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            UnitAmount = (long)(item.Price * 100), // $20.50 => 2050
+                            Currency = "usd",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = item.Book.Title
+                            }
+                        },
+                        Quantity = item.Count
+                    };
+                    options.LineItems.Add(sessionLineItem);
+                }
+
+                var service = new SessionService();
+                Session session = service.Create(options);
+                _unitOfWork.Order.UpdateStripePaymentID(CartVM.Order.OrderID, session.Id, session.PaymentIntentId);
+                _unitOfWork.Save();
+                Response.Headers.Add("Location", session.Url);
+                return new StatusCodeResult(303);
+
+            }
+
+            return RedirectToAction(nameof(OrderConfirmation), new {id = CartVM.Order.OrderID});
+        }
+        public IActionResult OrderConfirmation(int id)
+        {
+
+            return View(id);
+        }
+
+
+            public IActionResult Plus(int cartId)
         {
             var cartFromDb = _unitOfWork.Cart.Get(u => u.ID == cartId);
             cartFromDb.Count += 1;

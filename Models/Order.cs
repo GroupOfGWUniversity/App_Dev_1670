@@ -10,11 +10,13 @@ namespace App_Dev_1670.Models
         [Required]
         public int OrderID { get; set; }
         public string? Status { get; set; }
+        public DateTime OrderDate { get; set; }
         public DateTime OrderPlaced { get; set; }
         public DateTime OrderReceived { get; set; }
         public double? ShippingFee { get; set; }
         public double? SubTotal { get; set; }
         public double Total { get; set; }
+        public string? PaymentStatus { get; set; }
         public string ApplicationUserID { get; set; }
         [ForeignKey("ApplicationUserID")]
         [ValidateNever]
@@ -36,6 +38,8 @@ namespace App_Dev_1670.Models
        
         [Required]
         public string Name { get; set; }
+        [Required]
+        public string Gender { get; set; }
 
         //Relationship with Book Table
         public List<OrderDetails> BooksInOrder { get; } = new();
