@@ -8,7 +8,7 @@ using App_Dev_1670.Repository;
 using App_Dev_1670.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
-
+using System.Linq;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

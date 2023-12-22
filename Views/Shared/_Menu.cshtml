@@ -21,7 +21,7 @@
                     <a class="nav-link text-dark" asp-area="Seller" asp-controller="Book" asp-action="Index">Book</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="Seller" asp-controller="Home" asp-action="Order">Order</a>
+                    <a class="nav-link text-dark" asp-area="Seller" asp-controller="Order" asp-action="Index">Order</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="Seller" asp-controller="Request" asp-action="Index">RequestCategory</a>
@@ -48,10 +48,12 @@
                 </li>
             </ul>
         </div>
-        <div class="justify-content-start">
-            <h1>abc</h1>
-            <partial name="_login" />
-
+        <div class="d-flex justify-content-between align-items-center">
+            <a class="position-relative d-inline-block me-3  asp-area=" User" asp-controller="Cart" asp-action="Index">
+                <img src="/icon/cart.png" class="me-2" />
+                <span id="countCart" class="badge rounded-pill badge-notification bg-danger position-absolute top-0 start-100 translate-middle"></span>
+            </a>
+            <partial name="_login" class="ms-3" />
         </div>
         }
     }

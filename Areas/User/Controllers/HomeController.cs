@@ -109,5 +109,6 @@ namespace App_Dev_1670.Areas.User.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        //function update data
     }
 }

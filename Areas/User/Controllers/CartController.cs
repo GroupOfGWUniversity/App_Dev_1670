@@ -201,5 +201,20 @@ namespace App_Dev_1670.Areas.User.Controllers
                 }
             }
         }
+  public int TotalCount()
+        {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var carts = _unitOfWork.Cart.GetAll(u=>u.ApplicationUserID== userid).ToList();
+            int count = 0;
+
+            if (carts != null)
+            {
+                 count = carts.Count();
+
+            }
+            
+            return count;
+
+        }
     }
 }

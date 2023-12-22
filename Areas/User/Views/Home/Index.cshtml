@@ -3,44 +3,52 @@
 <div class="row pb-3">
     @foreach (var product in Model)
     {
+       
         <div class="col-lg-3 col-sm-6">
             <div class="row p-2">
-                <div class="col-12 p-1">
-                    <div class="card border-0 p-3 shadow  border-top border-5 rounded">
-                        @if (product.FrontBookUrl != null && product.FrontBookUrl.Count() > 0)
-                        {
-                            <img src="@product.FrontBookUrl" class="card-img-top rounded" width="500" height="200" />
-                        }
-                        else
-                        {
-                            <img src="https://placehold.co/500x600/png" class="card-img-top rounded" width="500" height="600" />
-                        }
 
-                        <div class="card-body pb-0">
-                            <div class="pl-1">
-                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-                                <p class="card-title text-warning text-center"> By Author : <b>@product.Author</b></p>
-                                <p class="card-title text-warning text-center"> Category : <b>@product.Category.Name</b></p>
+                <div class="col-12 p-1">
+                    <a asp-action="Details"
+                       asp-route-productId="@product.BookID"
+                       class="">
+                        <div class="card border-0 p-3 shadow  border-top border-5 rounded">
+                            @if (product.FrontBookUrl != null && product.FrontBookUrl.Count() > 0)
+                            {
+                                <img src="@product.FrontBookUrl" class="card-img-top rounded" width="500" height="200" />
+                            }
+                            else
+                            {
+                                <img src="https://placehold.co/500x600/png" class="card-img-top rounded" width="500" height="600" />
+                            }
+
+                            <div class="card-body pb-0">
+                                <div class="pl-1">
+                                    <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
+                                    <p class="card-title text-warning text-center"> By Author : <b>@product.Author</b></p>
+                                    <p class="card-title text-warning text-center"> Category : <b>@product.Category.Name</b></p>
+                                </div>
+                                <div class="pl-1">
+                                    <p class="text-dark text-opacity-75 text-center">
+                                        Price:
+                                        <span>
+                                            @product.Price.ToString("c")
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="pl-1">
-                                <p class="text-dark text-opacity-75 text-center">
-                                    Price:
-                                    <span>
-                                        @product.Price.ToString("c")
-                                    </span>
-                                </p>
+                            <div>
+                                <a asp-action="Details"
+                                   asp-route-productId="@product.BookID"
+                                   class="btn btn-primary bg-gradient border-0 form-control">
+                                    Details
+                                </a>
                             </div>
                         </div>
-                        <div>
-                            <a asp-action="Details"
-                               asp-route-productId="@product.BookID"
-                               class="btn btn-primary bg-gradient border-0 form-control">
-                                Details
-                            </a>
-                        </div>
-                    </div>
+                    </a>
+
                 </div>
             </div>
+
         </div>
     }
 

@@ -18,9 +18,6 @@
 
                 </a>
                 <partial name="_Menu" />
-
-
-
             </div>
         </nav>
     </header>
@@ -38,6 +35,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $.get('/User/Cart/TotalCount', function (data) {
+            $('#countCart').html(data);
+        });
+    </script>
+    <script>
+        setInterval(function () {
+            $('#countCart').load('/User/Cart/TotalCount');
+        }, 2000)
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
