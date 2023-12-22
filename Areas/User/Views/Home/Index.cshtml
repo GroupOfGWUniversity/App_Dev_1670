@@ -11,37 +11,51 @@
                     <a asp-action="Details"
                        asp-route-productId="@product.BookID"
                        class="text-decoration-none">
-                        <div class="card border-0 p-3 shadow  border-top border-5 rounded">
+                        <div class="card border-0 p-3 shadow  border-top border-5 rounded d-flex justify-content-center">
                             @if (product.FrontBookUrl != null && product.FrontBookUrl.Count() > 0)
                             {
-                                <img src="@product.FrontBookUrl" class="card-img-top rounded" width="500" height="200" />
+                                <div class="position-relative">
+                                    <img src="@product.FrontBookUrl" class="card-img-top book-image-home" />
+                                    @if (product.Condition)
+                                    {
+                                        <span class="badge rounded-pill badge-notification bg-info position-absolute top-0 start-100 translate-middle">New</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill badge-notification bg-warning position-absolute top-0 start-100 translate-middle">99%</span>
+
+                                    }
+
+                                </div>
                             }
                             else
                             {
-                                <img src="https://placehold.co/500x600/png" class="card-img-top rounded" width="500" height="600" />
+                                <img src="https://placehold.co/500x600/png" class="card-img-top rounded" />
                             }
 
                             <div class="card-body pb-0">
                                 <div class="pl-1">
                                     <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-                                    <p class="card-title text-warning text-center"> By Author : <b>@product.Author</b></p>
-                                    <p class="card-title text-warning text-center"> Category : <b>@product.Category.Name</b></p>
+                                    @* <p class="card-title text-warning text-center"> By Author : <b>@product.Author</b></p> *@
+                                    @* <p class="card-title text-warning text-center"> Category : <b>@product.Category.Name</b></p> *@
                                 </div>
                                 <div class="pl-1">
-                                    <p class="text-dark text-opacity-75 text-center">
-                                        Price:
+                                    <h3 class="text-dark text-center">
                                         <span>
                                             @product.Price.ToString("c")
                                         </span>
-                                    </p>
+                                    </h3>
                                 </div>
                             </div>
                             <div>
-                                <a asp-action="Details"
-                                   asp-route-productId="@product.BookID"
-                                   class="btn btn-primary bg-gradient border-0 form-control">
-                                    Details
-                                </a>
+                                <form method="post" asp-action="AddtoCartFromHome" asp-controller="Home" asp-area="User">
+                                    <input hidden asp-for="@product.BookID" />
+                                    <button type="submit" class="btn btn-primary bg-gradient w-100 py-2 text-uppercase fw-semibold">
+                                        Add To Cart
+                                    </button>
+                                </form>
+                                
                             </div>
                         </div>
                     </a>

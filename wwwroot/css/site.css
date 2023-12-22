@@ -1,4 +1,4 @@
-html {
+    html {
   font-size: 14px;
 }
 
@@ -35,4 +35,13 @@ body {
     border-radius: inherit; /* Inherit the border-radius to maintain the circle shape */
     display: block;
     padding: 0;
+}
+.book-image{
+    width:400px;
+    height:400px;
+    object-fit:contain
+}
+.book-image-home {
+    height: 300px;
+    object-fit: contain
 }

@@ -12,6 +12,11 @@
 {
         @if (ViewContext.ActionDescriptor.RouteValues["area"] == "Seller")
         {
+        <a class="navbar-brand" asp-area="Seller" asp-controller="Home" asp-action="Index">
+            <img src="/logo.svg" width="50px" class="ms-5">
+            <span class="align-bottom">ook Store</span>
+
+        </a>
         <div class="navbar-collapse collapse d-sm-inline-flex">
             <ul class="navbar-nav flex-grow-1 justify-content-start w-25">
                 <li class="nav-item">
@@ -35,6 +40,11 @@
         }
         else if (ViewContext.ActionDescriptor.RouteValues["area"] == "User")
         {
+        <a class="navbar-brand" asp-area="Seller" asp-controller="Home" asp-action="Index">
+            <img src="/logo.svg" width="50px" class="ms-5">
+            <span class="align-bottom">ook Store</span>
+
+        </a>
         <div class="navbar-collapse collapse d-sm-inline-flex">
             <ul class="navbar-nav flex-grow-1 justify-content-start w-25">
                 <li class="nav-item">
@@ -59,7 +69,11 @@
     }
     else if (this.User.IsInRole("Admin"))
     {
+    <a class="navbar-brand" asp-area="Seller" asp-controller="Home" asp-action="Index">
+        <img src="/logo.svg" width="50px" class="ms-5">
+        <span class="align-bottom">ook Store</span>
 
+    </a>
     <ul class="navbar-nav flex-grow-1 justify-content-start w-25">
 
         <li class="nav-item">
@@ -79,6 +93,11 @@
     }
     else
     {
+    <a class="navbar-brand" asp-area="Seller" asp-controller="Home" asp-action="Index">
+        <img src="/logo.svg" width="50px" class="ms-5">
+        <span class="align-bottom">ook Store</span>
+
+    </a>
     <partial name="_login" />
     }
 

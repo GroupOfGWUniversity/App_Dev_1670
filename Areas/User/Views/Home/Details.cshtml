@@ -32,13 +32,13 @@
                         <img src="@Model.Book.FrontBookUrl" width="100%" class="rounded" />
                         <img src="@Model.Book.BackBookUrl" width="100%" class="rounded" />
                     </div> *@
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselExampleControls" class="carousel slide book-image" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="@Model.Book.FrontBookUrl" class="d-block w-100" alt="...">
+                            <div class="carousel-item active book-image img-thumbnail border-3">
+                                <img src="@Model.Book.FrontBookUrl" class="d-block book-image" alt="...">
                             </div>
-                            <div class="carousel-item">
-                                <img src="@Model.Book.BackBookUrl" class="d-block w-100" alt="...">
+                            <div class="carousel-item book-image img-thumbnail border-3">
+                                <img src="@Model.Book.BackBookUrl" class="d-block book-image" alt="...">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
