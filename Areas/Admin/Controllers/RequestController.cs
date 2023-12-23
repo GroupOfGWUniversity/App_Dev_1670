@@ -38,16 +38,40 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             }
             return View(categoryFromDb);
         }
+        //[HttpPost]
+        //public IActionResult Edit(RequestCategory obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _unitOfWork.Request.Update(obj);
+        //        _unitOfWork.Save();
+        //        TempData["success"] = "Request updated successfully";
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View();
+        //}
         [HttpPost]
         public IActionResult Edit(RequestCategory obj)
         {
             if (ModelState.IsValid)
             {
+                if (obj.Status == StaticDetails.Accept)
+                {
+                    var newCategory = new Category { Name = obj.CategoryName };
+                    _unitOfWork.Category.Add(newCategory);
+                    obj.Status = StaticDetails.Accept; // Thay đổi giá trị ở đây
+                }
+                else
+                {
+                    obj.Status = StaticDetails.Denied; // Hoặc giá trị tương ứng cho trạng thái từ chối
+                }
                 _unitOfWork.Request.Update(obj);
                 _unitOfWork.Save();
+
                 TempData["success"] = "Request updated successfully";
                 return RedirectToAction("Index");
             }
+
             return View();
         }
     }

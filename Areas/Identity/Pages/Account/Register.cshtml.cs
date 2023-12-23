@@ -114,10 +114,12 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
             [Required]
             public string? Name { get; set; }
             public string? Gender { get; set; }
-            public DateTime? DateOfBirth { get; set; }
             public string? StreetAddress { get; set; }
             public string? PhoneNumber { get; set; }
             public string? City { get; set; }
+            public string? Role { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
 
@@ -130,6 +132,14 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Seller)).GetAwaiter().GetResult();
             }
+            Input = new()
+            {
+                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+                {
+                    Text = i,
+                    Value = i
+                })
+            };
             //create role
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -148,14 +158,23 @@ namespace App_Dev_1670.Areas.Identity.Pages.Account
                 user.StressAddress = Input.StreetAddress;
                 user.City = Input.City;
                 user.Name = Input.Name;
-                user.DateOfBirth = (Input.DateOfBirth.Value);
                 user.PhoneNumber = Input.PhoneNumber;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Seller");
-                    await _userManager.AddToRoleAsync(user, "Customer");
+                    _logger.LogInformation("User created a new account with password.");
+
+                    if (!String.IsNullOrEmpty(Input.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                        await _userManager.AddToRoleAsync(user, SD.Role_Seller);
+
+                    }
                     return RedirectToAction("Login", "Account");
 
                 }
