@@ -1,4 +1,8 @@
-﻿using App_Dev_1670.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Collections;
+using App_Dev_1670.Data;
 using App_Dev_1670.Models;
 using App_Dev_1670.Models.ViewModels;
 using App_Dev_1670.Repository.IRepository;
@@ -8,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+
 namespace App_Dev_1670.Areas.Seller.SellerControllers
 {
     [Area("Seller")]
@@ -15,15 +20,26 @@ namespace App_Dev_1670.Areas.Seller.SellerControllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public OrderController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public IActionResult Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<Order> books = _unitOfWork.Order.GetAll().ToList();
-            return View(books);
+            var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var orders = (from orderHeader in _unitOfWork.Order.GetAll()
+                        join orderDetails in _unitOfWork.OrderDetails.GetAll() on orderHeader.OrderID equals orderDetails.OrderID
+                        join books in _unitOfWork.Book.GetAll() on orderDetails.BookID equals books.BookID
+                        where books.SellerID == sellerId
+                        select orderHeader).ToList();
+
+
+            return View(orders);
         }
+
+
+
     }
 }

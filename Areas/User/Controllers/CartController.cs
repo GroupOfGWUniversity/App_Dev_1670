@@ -37,11 +37,12 @@ namespace App_Dev_1670.Areas.User.Controllers
 
             foreach (var cart in CartVM.ListCart)
             {
-                //cart.Book.FrontBookUrl = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
+                
 
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 CartVM.Order.Total += (cart.Price * cart.Count);
             }
+
             return View(CartVM);
         }
         public IActionResult Summary()
@@ -74,6 +75,12 @@ namespace App_Dev_1670.Areas.User.Controllers
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 CartVM.Order.Total += (cart.Price * cart.Count);
             }
+            if (CartVM.Order.Total == 0)
+            {
+                TempData["ErrorMessage"] = "Đơn hàng của bạn không có. Hãy thêm sản phẩm vào giỏ hàng.";
+
+                return Redirect("/User");
+            }
             return View(CartVM);
         }
         [HttpPost]
@@ -99,6 +106,8 @@ namespace App_Dev_1670.Areas.User.Controllers
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 CartVM.Order.Total += (cart.Price * cart.Count);
             }
+           
+
 
             if (applicationUser == null || applicationUser.Id == "0")
             {
@@ -191,6 +200,21 @@ namespace App_Dev_1670.Areas.User.Controllers
                     return cart.Book.Price* 0.3;
                 }
             }
+        }
+  public int TotalCount()
+        {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var carts = _unitOfWork.Cart.GetAll(u=>u.ApplicationUserID== userid).ToList();
+            int count = 0;
+
+            if (carts != null)
+            {
+                 count = carts.Count();
+
+            }
+            
+            return count;
+
         }
     }
 }

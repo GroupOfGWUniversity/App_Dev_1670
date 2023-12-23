@@ -1,5 +1,6 @@
 ﻿using App_Dev_1670.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace App_Dev_1670.Repository.IRepository
 {
@@ -8,5 +9,6 @@ namespace App_Dev_1670.Repository.IRepository
         void Update(Order order);
         void UpdateStatus (int id, string status, string? paymentStatus= null);
         void UpdateStripePaymentID(int id, string sessionId, string paymentIntentId);
+
     }
 }
