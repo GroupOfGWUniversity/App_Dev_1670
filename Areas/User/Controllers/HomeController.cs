@@ -21,11 +21,46 @@ namespace App_Dev_1670.Areas.User.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string sort)
         {
-            IEnumerable<Book> productList = _unitOfWork.Book.GetAll(includeProperty: "Category");
-            return View(productList);
+            IEnumerable<Book> books;
+
+            if (sort == null)
+            {
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category");
+            }
+            else if(sort=="newBook")
+            {
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category").Reverse();
+            }
+            else if (sort == "popular")
+            {
+                IEnumerable<Book> allBooks = _unitOfWork.Book.GetAll(includeProperty: "Category");
+                Random random = new Random();
+                books = allBooks.OrderBy(book => random.Next());
+            }
+            else if (sort=="bestSeller")
+            {
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category");
+
+
+            }
+            else if (sort == "highestPrice")
+            {
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category").OrderBy(book => book.Price).Reverse();
+            }
+            else if (sort == "lowestPrice")
+            {
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category").OrderBy(book => book.Price);
+            }
+            else
+            {
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category");
+            }
+
+            return View(books);
         }
+
 
         public IActionResult Details(int productId)
         {

@@ -1,6 +1,14 @@
 ﻿@model IEnumerable<Book>
 
 <div class="row pb-3">
+    <div>
+        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="popular">Pho Bien</a>
+        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="bestSeller">Ban Chay Nhat</a>
+        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="highestPrice">Gia Cao Nhat</a>
+        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="lowestPrice">Gia Thap Nhat</a>
+        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="newBook">Sach Moi</a>
+    </div>
+
     @foreach (var product in Model)
     {
        
