@@ -45,3 +45,19 @@ body {
     height: 300px;
     object-fit: contain
 }
+/*card book height(user page*/
+.card-book{
+    min-height:500px;
+    height:500px;
+}
+
+.nav-link{
+    color:black
+}
+.nav-link:hover {
+color:mediumpurple;
+filter: invert(72%) sepia(53%) saturate(6506%) hue-rotate(224deg) brightness(91%) contrast(87%);
+}
+.icon{
+    height:20px
+}

@@ -1,13 +1,25 @@
 ﻿@model IEnumerable<Book>
 
-<div class="row pb-3">
-    <div>
-        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="popular">Pho Bien</a>
-        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="bestSeller">Ban Chay Nhat</a>
-        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="highestPrice">Gia Cao Nhat</a>
-        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="lowestPrice">Gia Thap Nhat</a>
-        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="newBook">Sach Moi</a>
-    </div>
+<div class="row">
+    <nav class="navbar navbar-expand-lg">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="popular">
+                    <img src="/icon/fire.svg" class="icon" />Trending
+            </a>
+            <a class="nav-item nav-link" asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="bestSeller">
+                <img src="/icon/bestSeller.svg" class="icon" />Best Seller
+            </a>
+            <a class="nav-item nav-link" asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="highestPrice">
+                <img src="/icon/desc.svg" class="icon" />High to Low Price
+            </a>
+            <a class="nav-item nav-link" asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="lowestPrice">
+                <img src="/icon/asc.svg" class="icon" />Low to High Price
+            </a>
+            <a class="nav-item nav-link" asp-area="User" asp-controller="Home" asp-action="Index" asp-route-sort="newBook">
+                <img src="/icon/new.svg" class="icon" />New Book
+            </a>
+        </div>
+    </nav>
 
     @foreach (var product in Model)
     {
@@ -19,7 +31,7 @@
                     <a asp-action="Details"
                        asp-route-productId="@product.BookID"
                        class="text-decoration-none">
-                        <div class="card border-0 p-3 shadow  border-top border-5 rounded d-flex justify-content-center">
+                        <div class="card border-0 p-3 shadow  border-top border-5 rounded d-flex justify-content-center  card-book">
                             @if (product.FrontBookUrl != null && product.FrontBookUrl.Count() > 0)
                             {
                                 <div class="position-relative">
@@ -45,7 +57,7 @@
                             <div class="card-body pb-0">
                                 <div class="pl-1">
                                     <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-                                    @* <p class="card-title text-warning text-center"> By Author : <b>@product.Author</b></p> *@
+                                    @* <p class="card-title text-warning text-center"> By Author : <b>@product.Author</b></p>
                                     @* <p class="card-title text-warning text-center"> Category : <b>@product.Category.Name</b></p> *@
                                 </div>
                                 <div class="pl-1">
@@ -57,12 +69,12 @@
                                 </div>
                             </div>
                             <div>
-                                <form method="post" asp-action="AddtoCartFromHome" asp-controller="Home" asp-area="User">
+                           @*      <form method="post" asp-action="AddtoCartFromHome" asp-controller="Home" asp-area="User">
                                     <input hidden asp-for="@product.BookID" />
                                     <button type="submit" class="btn btn-primary bg-gradient w-100 py-2 text-uppercase fw-semibold">
                                         Add To Cart
                                     </button>
-                                </form>
+                                </form> *@
                                 
                             </div>
                         </div>
