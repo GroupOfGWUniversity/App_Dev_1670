@@ -12,6 +12,6 @@ namespace App_Dev_1670.Models
         public string Name { get; set; }
         public List<Book> Books { get; } = new();
 
-
+        public bool isVisible { get; set; } = true;
     }
 }

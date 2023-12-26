@@ -34,7 +34,7 @@ namespace App_Dev_1670.Areas.Seller.Controllers
         {
             BookVM bookVM = new()
             {
-                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                CategoryList = _unitOfWork.Category.GetAll().Where(b=>b.isVisible == false).Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()

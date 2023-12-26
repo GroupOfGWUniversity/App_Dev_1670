@@ -123,11 +123,11 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             IEnumerable<Book> booksInCategory = _unitOfWork.Book.GetAll(b => b.CategoryID == id);
             foreach (var book in booksInCategory)
             {
-                book.IsVisible = false;
+                book.Condition = false; 
+
                 _unitOfWork.Book.Update(book);
             }
-
-            _unitOfWork.Category.Remove(obj);
+            obj.isVisible = false;
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
 

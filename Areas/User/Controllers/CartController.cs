@@ -15,13 +15,13 @@ namespace App_Dev_1670.Areas.User.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-       // private readonly IEmailSender _emailSender;
+      
         [BindProperty]
         public CartVM CartVM { get; set; }
         public CartController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-           // _emailSender = emailSender;
+          
         }
 
         public IActionResult Index()

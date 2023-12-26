@@ -45,7 +45,6 @@ namespace App_Dev_1670.Models
 
         public List<ApplicationUser> ListOfCustomers { get; } = new();
 
-        [NotMapped]
         public bool IsVisible { get; set; }
     }
 }
