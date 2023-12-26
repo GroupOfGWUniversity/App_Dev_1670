@@ -52,7 +52,8 @@ namespace App_Dev_1670.Data
             modelBuilder.Entity<Book>()
              .HasOne(e => e.Category)
              .WithMany(e => e.Books)
-             .HasForeignKey(e => e.CategoryID);
+             .HasForeignKey(e => e.CategoryID)
+             .OnDelete(DeleteBehavior.SetNull);
 
             //update OrderDetails
 

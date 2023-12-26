@@ -18,6 +18,7 @@
                     <th>StreetAddress</th>
                     <th>Status</th>
                     <th>Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                         <td>@order.StreetAddress</td>
                         <td>@order.Status</td>
                         <td>@order.Total</td>
+                        <td><a asp-action="View" asp-route-id="@order.OrderID">View</a></td>
                     </tr>
 
                 }

@@ -22,5 +22,14 @@ namespace App_Dev_1670.Areas.User.Controllers
             List<Order> books = _unitOfWork.Order.GetAll(u => u.ApplicationUserID == userId).ToList();
             return View(books);
         }
+        public IActionResult View(int? id)
+        {
+            var books = (from book in _unitOfWork.Book.GetAll()
+                         join orderDetails in _unitOfWork.OrderDetails.GetAll() on book.BookID equals orderDetails.BookID
+                         join ApplicationUser in _unitOfWork.ApplicationUser.GetAll() on book.SellerID equals ApplicationUser.Id
+                         where orderDetails.OrderID == id
+                         select book).ToList();
+            return View(books);
+        }
     }
 }
