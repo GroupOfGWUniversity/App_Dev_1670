@@ -87,17 +87,50 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             }
             return View(categoryFromDb);
         }
+
+
+        //[HttpPost, ActionName("Delete")]
+        //public IActionResult DeletePOST(int? id)
+        //{
+        //    if(_unitOfWork.OrderDetails.GetAll().Any(od => od.Book.CategoryID == id)){
+        //        TempData["warning"] = "Cannot delete category because it is associated with existing orders.";
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
+        //        if (obj == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        _unitOfWork.Category.Remove(obj);
+        //        _unitOfWork.Save();
+        //        TempData["success"] = "Category deleted successfully";
+        //    }
+        //    return RedirectToAction("Index");
+        //}
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
+            Category obj = _unitOfWork.Category.Get(u => u.Id == id);
+
             if (obj == null)
             {
                 return NotFound();
             }
+
+            // Lấy tất cả sách thuộc category và ẩn chúng
+            IEnumerable<Book> booksInCategory = _unitOfWork.Book.GetAll(b => b.CategoryID == id);
+            foreach (var book in booksInCategory)
+            {
+                book.IsVisible = false;
+                _unitOfWork.Book.Update(book);
+            }
+
             _unitOfWork.Category.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
+
             return RedirectToAction("Index");
         }
     }

@@ -30,12 +30,9 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             return View(categories);
         }
 
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(string? id)
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            ApplicationUser? categoryFromDb = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+            ApplicationUser? categoryFromDb = _unitOfWork.ApplicationUser.Get(u => u.Id == id);
 
 
             if (categoryFromDb == null)
@@ -50,24 +47,20 @@ namespace App_Dev_1670.Areas.Admin.Controllers
 
             var user = await _userManager.FindByIdAsync(model.Id);
 
+
             if (user == null)
             {
-                // Xử lý trường hợp người dùng không tồn tại
                 return NotFound();
             }
-
-            // Thay đổi mật khẩu
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var result = await _userManager.ResetPasswordAsync(user, token, model.PasswordHash);
 
             if (result.Succeeded)
             {
-                // Xử lý khi thay đổi mật khẩu thành công
-                return RedirectToAction("Index"); // Chuyển hướng hoặc trả về view mong muốn
+                return RedirectToAction("Index"); 
             }
             else
             {
-                // Xử lý khi có lỗi xảy ra trong quá trình thay đổi mật khẩu
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -81,13 +74,13 @@ namespace App_Dev_1670.Areas.Admin.Controllers
 
 
 
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(string? id)
         {
-            if (id == null || id == 0)
+            if (id == null || id == "")
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
+            ApplicationUser? categoryFromDb = _unitOfWork.ApplicationUser.Get(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -96,14 +89,14 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             return View(categoryFromDb);
         }
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? id)
+        public IActionResult DeletePOST(string? id)
         {
-            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
+            ApplicationUser? obj = _unitOfWork.ApplicationUser.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.ApplicationUser.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");

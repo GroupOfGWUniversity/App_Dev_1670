@@ -1,68 +1,56 @@
-﻿@* @model seller
-<div class="card shadow border-0 mt-4">
+﻿@model Book
+<div class="card shadow border-0 my-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">delete seller</h2>
+                <h2 class="text-white py-2">Delete Book</h2>
             </div>
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post">
-            <input asp-for="sellerid" hidden />
-            <div class="border p-3 mt-4">
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="shopname" disabled class="form-control border-0 shadow" />
-                    <label asp-for="shopname" class="ms-2"></label>
-                  
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="phonenumber" disabled class="form-control border-0 shadow" />
-                    <label asp-for="phonenumber" class="ms-2"></label>
-                  
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="email" disabled class="form-control border-0 shadow" />
-                    <label asp-for="email" class="ms-2"></label>
-                   
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="avatar" disabled class="form-control border-0 shadow" />
-                    <label asp-for="avatar" class="ms-2"></label>
-                  
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="address" disabled class="form-control border-0 shadow" />
-                    <label asp-for="address" class="ms-2"></label>
-                    
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <select asp-for="isvalid" disabled class="form-control border-0 shadow">
-                        <option value="true">good condition</option>
-                        <option value="false">bad condition</option>
-                    </select>
-
-                    <label asp-for="isvalid" class="ms-2"></label>
-                    
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-danger form-control">delete</button>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="seller" asp-action="index" class="btn btn-secondary border  form-control">
-                            back to list
-                        </a>
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="BookID" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3">
+                        @*<div asp-validation-summary="ModelOnly"></div>*@
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Title" class="form-control border-0 shadow" />
+                            <label asp-for="Title" class="ms-2"></label>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                   @*      <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.Book.BookID != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Book" asp-action="Index" class="btn btn-outline-primary border  form-control">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div> *@
+                        <div class="row mt-3">
+                            <div class="col-6 col-md-3">
+                                <button type="submit" class="btn btn-danger form-control">Delete</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Book" asp-action="Index" class="btn btn-secondary border  form-control">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
 
             </div>
+
         </form>
     </div>
 </div>
-
-
-
- *@

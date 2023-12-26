@@ -150,34 +150,65 @@ namespace App_Dev_1670.Areas.User.Controllers
             public IActionResult Plus(int cartId)
         {
             var cartFromDb = _unitOfWork.Cart.Get(u => u.ID == cartId);
-            cartFromDb.Count += 1;
-            _unitOfWork.Cart.Update(cartFromDb);
-            _unitOfWork.Save();
+            var bookToUpdate = _unitOfWork.Book.Get(u => u.BookID == cartFromDb.BookID);
+            //cartFromDb.Count += 1;
+            //_unitOfWork.Cart.Update(cartFromDb);
+            //_unitOfWork.Save();
+            //return RedirectToAction(nameof(Index));
+            if (bookToUpdate.InStock != 0)
+            {
+                cartFromDb.Count += 1;
+                _unitOfWork.Cart.Update(cartFromDb);
+
+                bookToUpdate.InStock = Math.Max(0, bookToUpdate.InStock - 1);
+                _unitOfWork.Book.Update(bookToUpdate);
+                if(bookToUpdate.InStock == 0)
+                {
+                    bookToUpdate.Condition = false;
+                    _unitOfWork.Book.Update(bookToUpdate);
+
+                }
+                _unitOfWork.Save();
+            }
+            else
+            {
+                TempData["Error"] = "Not enough stock available.";
+            }
             return RedirectToAction(nameof(Index));
+
         }
         public IActionResult Minus(int cartId)
         {
             var cartFromDb = _unitOfWork.Cart.Get(u => u.ID == cartId);
-            if(cartFromDb.Count <= 1)
+            var bookToUpdate = _unitOfWork.Book.Get(u => u.BookID == cartFromDb.BookID);
+            if (cartFromDb.Count <= 1)
             {
-                //remove thar from cart
                 _unitOfWork.Cart.Remove(cartFromDb);
-
+                bookToUpdate.InStock = Math.Max(0, bookToUpdate.InStock + 1);
+                _unitOfWork.Book.Update(bookToUpdate);
+                _unitOfWork.Save();
             }
             else
             {
                 cartFromDb.Count -= 1;
                 _unitOfWork.Cart.Update(cartFromDb);
+                bookToUpdate.InStock = Math.Max(0, bookToUpdate.InStock + 1);
+                _unitOfWork.Book.Update(bookToUpdate);
+                _unitOfWork.Save();
+
             }
-           
+
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Remove(int cartId)
         {
             var cartFromDb = _unitOfWork.Cart.Get(u => u.ID == cartId);
-            
-                //remove thar from cart
+            var bookToUpdate = _unitOfWork.Book.Get(u => u.BookID == cartFromDb.BookID);
+            bookToUpdate.InStock = Math.Max(0, bookToUpdate.InStock + cartFromDb.Count);
+            bookToUpdate.Condition = true;
+            _unitOfWork.Book.Update(bookToUpdate);
+            //remove thar from cart
             _unitOfWork.Cart.Remove(cartFromDb);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));

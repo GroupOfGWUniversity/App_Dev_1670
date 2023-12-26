@@ -123,8 +123,7 @@ namespace App_Dev_1670.Areas.Seller.Controllers
                 else
                 {
                     obj.Book.SellerID = userId;
-
-                    _unitOfWork.Book.Update(obj.Book); //update Product
+                        _unitOfWork.Book.Update(obj.Book); //update Product
                     TempData["Success"] = "Product Update Successfully";
                 }
                 _unitOfWork.Save(); // lưu lại product vào danh sách và lưu vào database

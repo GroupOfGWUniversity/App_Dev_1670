@@ -44,5 +44,8 @@ namespace App_Dev_1670.Models
         public String? SellerID { get; set; }
 
         public List<ApplicationUser> ListOfCustomers { get; } = new();
+
+        [NotMapped]
+        public bool IsVisible { get; set; }
     }
 }

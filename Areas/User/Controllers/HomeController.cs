@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace App_Dev_1670.Areas.User.Controllers
 {
     [Area("User")]
-    [Authorize(Roles =SD.Role_Customer)]
+    //[Authorize(Roles =SD.Role_Customer)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -27,7 +27,7 @@ namespace App_Dev_1670.Areas.User.Controllers
 
             if (sort == null)
             {
-                books = _unitOfWork.Book.GetAll(includeProperty: "Category");
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category").Where(book => book.Condition == true);
             }
             else if(sort=="newBook")
             {
@@ -55,7 +55,7 @@ namespace App_Dev_1670.Areas.User.Controllers
             }
             else
             {
-                books = _unitOfWork.Book.GetAll(includeProperty: "Category");
+                books = _unitOfWork.Book.GetAll(includeProperty: "Category").Where(book => book.Condition == true);
             }
 
             return View(books);
@@ -92,11 +92,16 @@ namespace App_Dev_1670.Areas.User.Controllers
 
                     // Cập nhật thay đổi vào cơ sở dữ liệu
                     _unitOfWork.Book.Update(bookToUpdate);
-                    _unitOfWork.Save();
 
                     // Cập nhật số lượng trong giỏ hàng
                     cartFromDb.Count += cart.Count;
                     _unitOfWork.Cart.Update(cartFromDb);
+                    if (bookToUpdate.InStock == 0)
+                    {
+                        bookToUpdate.Condition = false;
+                        _unitOfWork.Book.Update(bookToUpdate);
+                    }
+                    _unitOfWork.Save();
                 }
                 else
                 {
@@ -114,10 +119,16 @@ namespace App_Dev_1670.Areas.User.Controllers
 
                     // Cập nhật thay đổi vào cơ sở dữ liệu
                     _unitOfWork.Book.Update(bookToUpdate);
-                    _unitOfWork.Save();
+                    if (bookToUpdate.InStock == 0)
+                    {
+                        bookToUpdate.Condition = false;
+                        _unitOfWork.Book.Update(bookToUpdate);
+                    }
 
                     // Thêm mới vào giỏ hàng
                     _unitOfWork.Cart.Add(cart);
+                    _unitOfWork.Save();
+
                 }
                 else
                 {

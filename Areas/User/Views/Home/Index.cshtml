@@ -57,8 +57,9 @@
                             <div class="card-body pb-0">
                                 <div class="pl-1">
                                     <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-                                    @* <p class="card-title text-warning text-center"> By Author : <b>@product.Author</b></p>
-                                    @* <p class="card-title text-warning text-center"> Category : <b>@product.Category.Name</b></p> *@
+                                    <p class="card-title text-warning text-center"> Condition : <b>@(product.Condition ? "Stocking" : "Out of Stock")</b></p>
+
+                                   
                                 </div>
                                 <div class="pl-1">
                                     <h3 class="text-dark text-center">
