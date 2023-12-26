@@ -130,7 +130,6 @@ namespace App_Dev_1670.Areas.Admin.Controllers
             _unitOfWork.Category.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
-
             return RedirectToAction("Index");
         }
     }

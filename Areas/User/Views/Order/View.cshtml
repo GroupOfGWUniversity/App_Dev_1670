@@ -1,0 +1,40 @@
+﻿@model List<Book>
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Book List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>BookID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Front Image</th>
+                    <th>Back Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.BookID</td>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.Description</td>
+                        <td>@book.Price</td>
+                        <td><img src="@book.FrontBookUrl" alt="Avatar" width="100" /></td>
+                        <td><img src="@book.FrontBookUrl" alt="Avatar" width="100" /></td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
